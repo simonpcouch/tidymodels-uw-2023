@@ -1,17 +1,24 @@
 [
   {
-    "objectID": "index.html#section-1",
-    "href": "index.html#section-1",
+    "objectID": "index.html#who-am-i",
+    "href": "index.html#who-am-i",
     "title": "",
-    "section": "👋",
-    "text": "👋"
+    "section": "👋 Who am I?",
+    "text": "👋 Who am I?"
   },
   {
-    "objectID": "index.html#section-2",
-    "href": "index.html#section-2",
+    "objectID": "index.html#who-are-we",
+    "href": "index.html#who-are-we",
     "title": "",
-    "section": "👋",
-    "text": "👋"
+    "section": "👋 Who are we?",
+    "text": "👋 Who are we?"
+  },
+  {
+    "objectID": "index.html#who-are-you",
+    "href": "index.html#who-are-you",
+    "title": "",
+    "section": "👋 Who are you?",
+    "text": "👋 Who are you?"
   },
   {
     "objectID": "index.html#why-tidymodels",
