@@ -39,21 +39,64 @@ theme_set(theme_minimal(base_size = 20))
 
 ![](figures/hero.png)
 
-## 
+## `r emo::ji("wave")`
 
-![](figures/ml_ops_cycle.png){fig-align="center"}
+::: columns
+::: {.column width="25%"}
 
+:::
 
-## Why tidymodels? 
+::: columns
+::: {.column width="25%"}
+![](figures/avatars/simon.png)
+![](figures/avatars/empty.png)
+:::
+
+::: {.column width="25%"}
+![](figures/avatars/empty.png)
+![](figures/avatars/empty.png)
+:::
+:::
+
+::: {.column width="25%"}
+
+:::
+:::
+
+----
+
+## `r emo::ji("wave")`
+
+::: columns
+::: {.column width="25%"}
+
+:::
+
+::: columns
+::: {.column width="25%"}
+![](figures/avatars/simon.png)
+![](figures/avatars/emil.png)
+:::
+
+::: {.column width="25%"}
+![](figures/avatars/hannah.png)
+![](figures/avatars/max.png)
+:::
+:::
+
+::: {.column width="25%"}
+
+:::
+:::
+
+## Why tidymodels?
 
 ## Why tidymodels?  *Consistency*
 
 . . .
 
-:::: {.columns}
-
+::: columns
 ::: {.column width="50%"}
-
 With `lm()`:
 
 ```{r eng-lm-model}
@@ -62,11 +105,9 @@ With `lm()`:
 model <- 
   lm(mpg ~ ., mtcars)
 ```
-
 :::
 
 ::: {.column width="50%"}
-
 With tidymodels:
 
 ```{r tm-lm}
@@ -78,18 +119,13 @@ model <-
   set_engine("lm") %>%
   fit(mpg ~ ., mtcars)
 ```
-
-
 :::
-
-::::
+:::
 
 ## Why tidymodels?  *Consistency*
 
-:::: {.columns}
-
+::: columns
 ::: {.column width="50%"}
-
 With glmnet:
 
 ```{r eng-glmnet-model}
@@ -101,11 +137,9 @@ model <-
     mtcars$mpg
   )
 ```
-
 :::
 
 ::: {.column width="50%"}
-
 With tidymodels:
 
 ```{r tm-glmnet}
@@ -117,18 +151,13 @@ model <-
   set_engine("glmnet") %>%
   fit(mpg ~ ., mtcars)
 ```
-
-
 :::
-
-::::
+:::
 
 ## Why tidymodels?  *Consistency*
 
-:::: {.columns}
-
+::: columns
 ::: {.column width="50%"}
-
 With h2o:
 
 ```{r eng-h2o-model}
@@ -144,11 +173,9 @@ model <-
     "mtcars"
   )
 ```
-
 :::
 
 ::: {.column width="50%"}
-
 With tidymodels:
 
 ```{r tm-h2o}
@@ -160,31 +187,30 @@ model <-
   set_engine("h2o") %>%
   fit(mpg ~ ., mtcars)
 ```
-
-
 :::
-
-::::
+:::
 
 ## Why tidymodels?  *Consistency*
 
 ## Why tidymodels?  *Safety*[^1]
 
-## Why tidymodels?  *Safety*[^1]
-
-* A 2023 review found **data leakage** to be "a widespread failure mode in machine-learning (ML)-based science."
-
-. . .
-
-* **Overfitting** leads to analysts believing models are more performant than they actually are.
-
-. . .
-
-* Implementations of the same machine learning model give differing results, resulting in **irreproducibility** of modeling results.
-
 [^1]: 10.1016/j.patter.2023.100804, 10.1097/01.psy.0000127692.23278.a9, 10.1609/aaai.v32i1.11694
 
----
+## Why tidymodels?  *Safety*[^2]
+
+[^2]: 10.1016/j.patter.2023.100804, 10.1097/01.psy.0000127692.23278.a9, 10.1609/aaai.v32i1.11694
+
+-   A 2023 review found **data leakage** to be "a widespread failure mode in machine-learning (ML)-based science."
+
+. . .
+
+-   **Overfitting** leads to analysts believing models are more performant than they actually are.
+
+. . .
+
+-   Implementations of the same machine learning model give differing results, resulting in **irreproducibility** of modeling results.
+
+------------------------------------------------------------------------
 
 ### Why tidymodels?  *Completeness*
 
@@ -216,7 +242,7 @@ Built-in support for `r nrow(model_options)` machine learning models!
 model_options
 ```
 
----
+------------------------------------------------------------------------
 
 ### Why tidymodels?  *Completeness*
 
@@ -257,7 +283,7 @@ step_options
 
 Can't find the technique you need?
 
-. . . 
+. . .
 
 ![](https://media.tenor.com/Yw6STFBZk_8AAAAC/not-a-problem-thumbs-up.gif){fig-align="center" width="60%"}
 
@@ -271,10 +297,9 @@ Tightly integrated with vetiver and Posit Team.
 
 Let's go see how!`r emo::ji("smiling face with sunglasses")`
 
+------------------------------------------------------------------------
 
----
-
----
+------------------------------------------------------------------------
 
 ## 
 
@@ -282,60 +307,51 @@ Let's go see how!`r emo::ji("smiling face with sunglasses")`
 
 ## Resources
 
-:::: {.columns}
+::: columns
 ::: {.column width="50%"}
-
-* tidyverse: <span style="color:#CA225E;">r4ds.hadley.nz</span>
-
+-   tidyverse: [r4ds.hadley.nz]{style="color:#CA225E;"}
 :::
-::: {.column width="50%"}
 
+::: {.column width="50%"}
 ![](https://r4ds.hadley.nz/cover.jpg){height="550"}
-
 :::
-::::
+:::
 
 ## Resources
 
-:::: {.columns}
+::: columns
 ::: {.column width="50%"}
-
-* tidyverse: <span style="color:#CA225E;">r4ds.hadley.nz</span>
-* tidymodels: <span style="color:#CA225E;">tmwr.org</span>
-
+-   tidyverse: [r4ds.hadley.nz]{style="color:#CA225E;"}
+-   tidymodels: [tmwr.org]{style="color:#CA225E;"}
 :::
-::: {.column width="50%"}
 
+::: {.column width="50%"}
 ![](https://www.tmwr.org/images/cover.png){height="550"}
-
 :::
-::::
+:::
 
 ## Resources
 
-:::: {.columns}
+::: columns
 ::: {.column width="50%"}
-
-* tidyverse: <span style="color:#CA225E;">r4ds.hadley.nz</span>
-* tidymodels: <span style="color:#CA225E;">tmwr.org</span>
-* Posit Team: <span style="color:#CA225E;">posit.co/team</span>
-
+-   tidyverse: [r4ds.hadley.nz]{style="color:#CA225E;"}
+-   tidymodels: [tmwr.org]{style="color:#CA225E;"}
+-   Posit Team: [posit.co/team]{style="color:#CA225E;"}
 :::
-::: {.column width="50%"}
 
+::: {.column width="50%"}
 ![](figures/logo_posit_team.png)
-
 :::
-::::
+:::
 
 ## Resources
 
-* tidyverse: <span style="color:#CA225E;">r4ds.hadley.nz</span>
-* tidymodels: <span style="color:#CA225E;">tmwr.org</span>
-* Posit Team: <span style="color:#CA225E;">posit.co/team</span>
-* Slides and source code:
+-   tidyverse: [r4ds.hadley.nz]{style="color:#CA225E;"}
+-   tidymodels: [tmwr.org]{style="color:#CA225E;"}
+-   Posit Team: [posit.co/team]{style="color:#CA225E;"}
+-   Slides and source code:
 
-<center><span style="color:#CA225E;">github.com/simonpcouch/tidymodels-uw-2023</span></center>
+<center>[github.com/simonpcouch/tidymodels-uw-2023]{style="color:#CA225E;"}</center>
 
 . . .
 
