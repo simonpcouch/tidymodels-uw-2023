@@ -1,0 +1,342 @@
+---
+title: ""
+format: 
+  revealjs:
+    theme: [default, tidymodels.scss]
+    footer: '<span style="color:#CA225E;">github.com/simonpcouch/tidymodels-uw-2023</span>'
+editor: source
+knitr:
+  opts_chunk: 
+    echo: true
+    collapse: true
+    comment: "#>"
+---
+
+```{r setup}
+#| echo: false
+#| message: false
+#| warning: false
+library(tidyverse)
+
+library(tidymodels)
+library(textrecipes)
+library(themis)
+x <- lapply(parsnip:::extensions(), require, character.only = TRUE)
+
+library(bundle)
+library(vetiver)
+library(pins)
+
+library(glmnet)
+library(h2o)
+
+options(width = 70)
+
+theme_set(theme_minimal(base_size = 20))
+```
+
+# 
+
+![](figures/hero.png)
+
+## 
+
+![](figures/ml_ops_cycle.png){fig-align="center"}
+
+
+## Why tidymodels? 
+
+## Why tidymodels?  *Consistency*
+
+. . .
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+With `lm()`:
+
+```{r eng-lm-model}
+#| echo: true
+#| eval: false
+model <- 
+  lm(mpg ~ ., mtcars)
+```
+
+:::
+
+::: {.column width="50%"}
+
+With tidymodels:
+
+```{r tm-lm}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "|3"
+model <-
+  linear_reg() %>%
+  set_engine("lm") %>%
+  fit(mpg ~ ., mtcars)
+```
+
+
+:::
+
+::::
+
+## Why tidymodels?  *Consistency*
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+With glmnet:
+
+```{r eng-glmnet-model}
+#| echo: true
+#| eval: false
+model <- 
+  glmnet(
+    as.matrix(mtcars[2:11]),
+    mtcars$mpg
+  )
+```
+
+:::
+
+::: {.column width="50%"}
+
+With tidymodels:
+
+```{r tm-glmnet}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "3||3"
+model <-
+  linear_reg() %>%
+  set_engine("glmnet") %>%
+  fit(mpg ~ ., mtcars)
+```
+
+
+:::
+
+::::
+
+## Why tidymodels?  *Consistency*
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+With h2o:
+
+```{r eng-h2o-model}
+#| echo: true
+#| eval: false
+h2o::h2o.init()
+as.h2o(mtcars, "mtcars")
+
+model <- 
+  h2o.glm(
+    x = colnames(mtcars[2:11]), 
+    y = "mpg",
+    "mtcars"
+  )
+```
+
+:::
+
+::: {.column width="50%"}
+
+With tidymodels:
+
+```{r tm-h2o}
+#| echo: true
+#| eval: false
+#| code-line-numbers: "3|"
+model <-
+  linear_reg() %>%
+  set_engine("h2o") %>%
+  fit(mpg ~ ., mtcars)
+```
+
+
+:::
+
+::::
+
+## Why tidymodels?  *Consistency*
+
+## Why tidymodels?  *Safety*[^1]
+
+## Why tidymodels?  *Safety*[^1]
+
+* A 2023 review found **data leakage** to be "a widespread failure mode in machine-learning (ML)-based science."
+
+. . .
+
+* **Overfitting** leads to analysts believing models are more performant than they actually are.
+
+. . .
+
+* Implementations of the same machine learning model give differing results, resulting in **irreproducibility** of modeling results.
+
+[^1]: 10.1016/j.patter.2023.100804, 10.1097/01.psy.0000127692.23278.a9, 10.1609/aaai.v32i1.11694
+
+---
+
+### Why tidymodels?  *Completeness*
+
+```{r make-model-options}
+#| message: false
+#| warning: false
+#| eval: true
+#| echo: false
+library(parsnip)
+library(tidyverse)
+
+x <- lapply(parsnip:::extensions(), require, character.only = TRUE)
+
+model_options <-
+  parsnip::get_model_env() %>%
+  as.list() %>%
+  enframe() %>%
+  filter(grepl("pkgs", name)) %>%
+  mutate(name = gsub("_pkgs", "", name)) %>%
+  unnest(value) %>%
+  distinct(name, engine)
+```
+
+Built-in support for `r nrow(model_options)` machine learning models!
+
+```{r print-model-options}
+#| echo: false
+#| collapse: false
+model_options
+```
+
+---
+
+### Why tidymodels?  *Completeness*
+
+```{r make-recipes-options}
+#| message: false
+#| warning: false
+#| eval: true
+#| echo: false
+library(tidyverse)
+
+recipes_pkgs <- c("recipes", "textrecipes", "themis")
+
+read_ns <- function(pkg) {
+  asNamespace("recipes") %>%
+    pluck(".__NAMESPACE__.", "exports") %>%
+    as.list() %>%
+    enframe()
+}
+
+step_options <-
+  map(recipes_pkgs, read_ns) %>%
+  bind_rows() %>%
+  filter(grepl("step", name)) %>%
+  distinct(name)
+```
+
+Built-in support for `r nrow(step_options)` data pre-processing techniques!
+
+```{r print-recipes-options}
+#| echo: false
+#| collapse: false
+step_options
+```
+
+## Why tidymodels?  *Extensibility*
+
+. . .
+
+Can't find the technique you need?
+
+. . . 
+
+![](https://media.tenor.com/Yw6STFBZk_8AAAAC/not-a-problem-thumbs-up.gif){fig-align="center" width="60%"}
+
+## Why tidymodels? *Deployability*
+
+. . .
+
+Tightly integrated with vetiver and Posit Team.
+
+. . .
+
+Let's go see how!`r emo::ji("smiling face with sunglasses")`
+
+
+---
+
+---
+
+## 
+
+![](figures/ml_ops_cycle_tidymodels_plus_posit_team.png){fig-align="center"}
+
+## Resources
+
+:::: {.columns}
+::: {.column width="50%"}
+
+* tidyverse: <span style="color:#CA225E;">r4ds.hadley.nz</span>
+
+:::
+::: {.column width="50%"}
+
+![](https://r4ds.hadley.nz/cover.jpg){height="550"}
+
+:::
+::::
+
+## Resources
+
+:::: {.columns}
+::: {.column width="50%"}
+
+* tidyverse: <span style="color:#CA225E;">r4ds.hadley.nz</span>
+* tidymodels: <span style="color:#CA225E;">tmwr.org</span>
+
+:::
+::: {.column width="50%"}
+
+![](https://www.tmwr.org/images/cover.png){height="550"}
+
+:::
+::::
+
+## Resources
+
+:::: {.columns}
+::: {.column width="50%"}
+
+* tidyverse: <span style="color:#CA225E;">r4ds.hadley.nz</span>
+* tidymodels: <span style="color:#CA225E;">tmwr.org</span>
+* Posit Team: <span style="color:#CA225E;">posit.co/team</span>
+
+:::
+::: {.column width="50%"}
+
+![](figures/logo_posit_team.png)
+
+:::
+::::
+
+## Resources
+
+* tidyverse: <span style="color:#CA225E;">r4ds.hadley.nz</span>
+* tidymodels: <span style="color:#CA225E;">tmwr.org</span>
+* Posit Team: <span style="color:#CA225E;">posit.co/team</span>
+* Slides and source code:
+
+<center><span style="color:#CA225E;">github.com/simonpcouch/tidymodels-uw-2023</span></center>
+
+. . .
+
+Thank you!

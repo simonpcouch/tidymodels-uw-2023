@@ -1,1 +1,5 @@
 .Rproj.user
+
+/.quarto/
+
+*.psd
