@@ -91,30 +91,53 @@ theme_set(theme_minimal(base_size = 20))
 
 <!-- who are you? tidymodels in academic research -- ask about listener's role and field of study -->
 
-. . .
-
-![](figures/publications/covid_infectious-diseases.png){.absolute top=100 left=200 width="500" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
 
 . . .
 
-![](figures/publications/alcoholism_nature.png){.absolute top=150 left=270 width="500" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
+![](figures/publications/covid_infectious-diseases.png){.absolute top=205 left=210 width="400" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
+
+![](figures/institutions/ubc.png){.absolute top=90 left=50 width="80"}
+![](figures/institutions/utoronto.png){.absolute top=90 left=120 width="80"}
 
 . . .
 
-![](figures/publications/terrestrial-nature_pnas.png){.absolute top=200 left=340 width="500" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
+![](figures/publications/alcoholism_nature.png){.absolute top=250 left=280 width="400" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
+
+![](figures/institutions/boston.png){.absolute top=105 left=190 width="80"}
+
+![](figures/institutions/mgh.png){.absolute top=90 left=270 width="80"}
 
 . . .
 
-![](figures/publications/coffee_nature.png){.absolute top=250 left=410 width="500" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
+![](figures/publications/terrestrial-nature_pnas.png){.absolute top=300 left=350 width="400" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
+
+![](figures/institutions/uarizona.png){.absolute top=90 left=350 width="80"}
+
+![](figures/institutions/max_planck.png){.absolute top=90 left=430 width="80"}
+
+![](figures/institutions/u_hong_kong.png){.absolute top=105 left=510 width="80"}
 
 . . .
 
-![](figures/publications/tumors_neuro-oncology.png){.absolute top=300 left=480 width="500" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
+![](figures/publications/coffee_nature.png){.absolute top=350 left=420 width="400" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
+
+![](figures/institutions/oxford.png){.absolute top=90 left=590 width="80"}
+
+![](figures/institutions/imperial_london.png){.absolute top=105 left=670 width="80"}
 
 . . .
 
-![](figures/publications/gut-microbiota_cell.png){.absolute top=350 left=550 width="500" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
+![](figures/publications/tumors_neuro-oncology.png){.absolute top=400 left=490 width="400" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
 
+![](figures/institutions/baylor.png){.absolute top=90 left=750 width="80"}
+
+![](figures/institutions/cwru.png){.absolute top=90 left=830 width="80"}
+
+. . .
+
+![](figures/publications/gut-microbiota_cell.png){.absolute top=450 left=560 width="400" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
+
+![](figures/institutions/stanford.png){.absolute top=90 left=910 width="80"}
 
 ## Roadmap
 
