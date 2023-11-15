@@ -116,7 +116,70 @@ theme_set(theme_minimal(base_size = 20))
 ![](figures/publications/gut-microbiota_cell.png){.absolute top=350 left=550 width="500" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
 
 
-## Why tidymodels?
+## Roadmap
+
+::: {.incremental}
+- What is tidymodels?
+- Why tidymodels?
+- Applied example
+- Resources
+:::
+
+# What is tidymodels? {background-color="#CA225E"}
+
+----
+
+<br>
+
+> _The tidymodels framework is a collection of packages for modeling and machine learning using tidyverse principles._
+> <p style="text-align:right;">\- tidymodels.org</p>
+
+. . .
+
+<br> 
+
+...so what is modeling and machine learning?
+
+## BYO Venn Diagram
+
+
+![](figures/byo_venn_diagram.png){fig-align="center"}
+
+-----
+
+<br><br>
+
+> _The tidymodels framework is a collection of packages for safe, performant, and expressive supervised predictive modeling on tabular data._
+
+. . .
+
+<br>
+
+`r emo::ji("woozy_face")`
+
+. . .
+
+<br> 
+
+Think about the modeling problem, not the syntax.
+
+# Why tidymodels? {background-color="#CA225E"}
+
+## Why tidymodels?  *Consistency*
+
+. . .
+
+How many different ways can you think of to fit a linear model in R?
+
+. . .
+
+The blessing:
+
+* Many statistical modeling practitioners implement methods in R
+
+The curse:
+
+* Many statistical modeling practitioners implement methods in R
 
 ## Why tidymodels?  *Consistency*
 
@@ -241,6 +304,12 @@ model <-
 
 ### Why tidymodels?  *Completeness*
 
+![](figures/whole-game-final.jpeg)
+
+------------------------------------------------------------------------
+
+### Why tidymodels?  *Completeness*
+
 ```{r make-model-options}
 #| message: false
 #| warning: false
@@ -318,13 +387,12 @@ Can't find the technique you need?
 
 . . .
 
-Tightly integrated with vetiver and Posit Team.
+Tightly integrated with Posit Workbench and Connect
 
 . . .
 
-Let's go see how!`r emo::ji("smiling face with sunglasses")`
-
-------------------------------------------------------------------------
+* Workbench: scalable, on-demand computational resources
+* Connect: share work with collaborators and practitioners
 
 ------------------------------------------------------------------------
 

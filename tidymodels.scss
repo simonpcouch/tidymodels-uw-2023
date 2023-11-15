@@ -34,3 +34,7 @@ $presentation-heading-color: $charcoal !default;
 .reveal .column-output-location .column:first-of-type div.sourceCode {
   height: unset !important;
 }
+
+.reveal .slide blockquote {
+  color: #a1a1a1;
+}
