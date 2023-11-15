@@ -180,6 +180,48 @@ theme_set(theme_minimal(base_size = 20))
 
 `r emo::ji("woozy_face")`
 
+
+----
+
+<br><br>
+
+> _The tidymodels framework is a collection of packages for safe, performant, and expressive <span style="color:#CA225E">supervised predictive modeling</span> on tabular data._
+
+<br>
+
+`r emo::ji("woozy_face")`
+
+
+----
+
+<br><br>
+
+> _The tidymodels framework is a collection of packages for safe, performant, and expressive supervised predictive modeling on <span style="color:#CA225E">tabular data</span>._
+
+<br>
+
+`r emo::ji("woozy_face")`
+
+----
+
+<br><br>
+
+> _The tidymodels framework is a collection of packages for <span style="color:#CA225E">safe, performant, and expressive</span> supervised predictive modeling on tabular data._
+
+<br>
+
+`r emo::ji("woozy_face")`
+
+----
+
+<br><br>
+
+> _The tidymodels framework is a collection of packages for safe, performant, and expressive supervised predictive modeling on tabular data._
+
+<br>
+
+`r emo::ji("woozy_face")`
+
 . . .
 
 <br> 
@@ -206,7 +248,13 @@ The curse:
 
 ## Why tidymodels?  *Consistency*
 
-. . .
+. . . 
+
+```{r}
+mtcars
+```
+
+## Why tidymodels?  *Consistency*
 
 ::: columns
 ::: {.column width="50%"}
@@ -322,6 +370,10 @@ model <-
 . . .
 
 -   Implementations of the same machine learning model give differing results, resulting in **irreproducibility** of modeling results.
+
+-----
+
+## Why tidymodels?  *Safety*
 
 ------------------------------------------------------------------------
 
