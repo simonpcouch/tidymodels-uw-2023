@@ -5,15 +5,14 @@ format: html
 ---
 
 ```{r}
-#| eval: false
+#| echo: false
 if (file.exists("wf_set_fit.rda")) {
   eval_fits <- FALSE
   # read outputs in from source:
   load("wf_set_fit.rda")
-  load("metrics_wf_set.Rda")
-  load("metrics_mars.Rda")
-  load("final_fit_bundled.Rda")
-  final_fit <- bundle::unbundle(final_fit_bundled)
+  load("metrics_wf_set.rda")
+  load("metrics_mars_sim_anneal_fit.rda")
+  load("mars_final_fit.rda")
 } else {
   eval_fits <- TRUE
 }
@@ -40,7 +39,7 @@ library(baguette)
 
 The [finetune package](https://finetune.tidymodels.org/) will give us additional tuning functionality, while the bonsai and baguette package provide support for additional model types.
 
-tidymodels supports a number of R frameworks for parallel computing:
+tidymodels supports a number of R frameworks for [parallel computing](https://tune.tidymodels.org/articles/extras/optimizations.html):
 
 ```{r parallel}
 #| message: false
@@ -55,7 +54,7 @@ availableCores()
 registerDoMC(cores = max(1, availableCores() - 1))
 ```
 
-With a [multi-core setup registered](https://tune.tidymodels.org/articles/extras/optimizations.html), tidymodels will now make use of all of the cores on my computer for expensive computations.
+With a multi-core setup registered, tidymodels will now make use of all of the cores on my computer for expensive computations.
 
 ## Data Import
 
@@ -71,7 +70,7 @@ msnflights22
 You can make your own flights data using the [anyflights](https://simonpcouch.github.io/anyflights/) package! The [`query_data.R`](example/query_data.R) file contains the code used to generate this dataset.
 :::
 
-We'd like to model `delayed`, a binary outcome variable giving whether the flight was delayed by 10 or more minutes.
+We'd like to model `delayed`, a binary outcome variable giving whether a given flight was delayed by 10 or more minutes.
 
 ```{r count-delayed}
 # summarize counts of the outcome variable
@@ -90,6 +89,8 @@ msnflights22 %>%
   geom_jitter()
 ```
 
+A machine learning may be able to get some traction here, though.
+
 ## Splitting up data
 
 We split data into training and testing sets so that, once we've trained our final model, we can get an honest assessment of the model's performance. Since this data is a time series, we'll allot the first ~10 months to training and the remainder to testing:
@@ -98,9 +99,7 @@ We split data into training and testing sets so that, once we've trained our fin
 # set the seed for random number generation
 set.seed(1)
 
-# split the flights data into
-# * training [jan - oct]
-# * testing  [nov - dec]
+# split the flights data into training [jan - oct] and testing  [nov - dec]
 flights_split <- initial_time_split(msnflights22, prop = 5/6)
 flights_train <- training(flights_split)
 flights_test <- testing(flights_split)
@@ -245,7 +244,7 @@ wf_set <-
 wf_set
 ```
 
-Now that we've defined each of our modeling configurations, we'll fit them to the resamples we defined earlier.
+Now that we've defined each of our modeling configurations, we'll fit them to the resamples we defined earlier. Here, `tune_grid()` is applied to each workflow in the workflow set, testing out a set of tuning parameter values for each workflow and assessing the resulting fit.
 
 ```{r}
 #| eval: !expr eval_fits
@@ -270,6 +269,10 @@ wf_set_fit <-
             "tune_results"),
   ]
 ```
+
+::: callout-note
+`workflow_map()` is calling `tune_grid()` on each modeling workflow we've created. You can read more about `tune_grid()` [here](https://www.tidymodels.org/start/tuning/).
+:::
 
 Collecting the information on performance from the resulting object:
 
@@ -297,7 +300,7 @@ metrics_wf_set %>%
 
 ## Evaluating models: round 2
 
-It looks like a bagged MARS model with centered and scaled predictors was considerably more performant than the other proposed models. Let's work with those MARS results and see if we can make any further improvements to performance:
+It looks like a [bagged MARS model](https://parsnip.tidymodels.org/reference/bag_mars.html) with centered and scaled predictors was considerably more performant than the other proposed models. Let's work with those MARS results and see if we can make any further improvements to performance:
 
 ```{r}
 #| eval: !expr eval_fits
@@ -305,57 +308,68 @@ mars_res <- extract_workflow_set_result(wf_set_fit, "normalize_bag_mars")
 
 mars_wflow <-
   workflow() %>%
-  add_recipe(recipe_basic) %>%
-  add_model(spec_mars)
+  add_recipe(recipe_normalize) %>%
+  add_model(spec_bm)
 
 mars_sim_anneal_fit <-
   tune_sim_anneal(
     object = mars_wflow,
     resamples = flights_folds,
-    iter = 25,
-    metrics = flights_metrics,
+    iter = 10,
     initial = mars_res,
     control = control_sim_anneal(verbose = TRUE, parallel_over = "everything")
   )
-
-metrics_mars <- collect_metrics(mars_sim_anneal_fit, summarize = FALSE)
 ```
 
 Looks like we *did* make a small improvement:
 
 ```{r}
-metrics_mars
+#| eval: false
+collect_metrics(mars_sim_anneal_fit) %>%
+  filter(.metric == "roc_auc") %>%
+  arrange(desc(mean))
 ```
+
+```{r}
+#| echo: false
+metrics_mars_sim_anneal_fit %>%
+  filter(.metric == "roc_auc") %>%
+  arrange(desc(mean))
+```
+
+We can now train the model with the most optimal performance in cross-validation on the entire training set.
 
 ## The final model fit
 
-The `last_fit()` function will take care of fitting the most performant model specification to the whole training dataset:
+The `last_fit()` function will take care of fitting the most performant model specification to the whole training dataset and evaluating it's performance with the test set:
 
 ```{r}
 #| eval: !expr eval_fits
 mars_final_fit <-
-  last_fit(
-    mars_wflow,
-    flights_split
-  )
+  mars_sim_anneal_fit %>%
+  # extract the best hyperparameter configuration
+  select_best("roc_auc") %>%
+  # attach it to the general workflow
+  finalize_workflow(mars_wflow, .) %>%
+  # evaluate the final workflow on the train/test split
+  last_fit(flights_split)
 
-final_fit <- extract_workflow(mars_final_fit)
+mars_final_fit
 ```
 
+The test set `roc_auc()` for this model was `r collect_metrics(mars_final_fit) %>% filter(.metric == "roc_auc") %>% pull(.estimate) %>% round(3)`. The final fitted workflow can be extracted from `mars_final_fit` and is ready to predict on new data:
+
 ```{r}
-#| eval: !expr eval_fits
-#| include: false
-final_fit_bundled <- bundle(final_fit)
-save(final_fit_bundled, file = "final_fit_bundled.rda")
+final_fit <- extract_workflow(mars_final_fit)
 ```
 
 ## Deploying to Connect
 
-From here, all we need to do to deploy our fitted model is pass it off to vetiver for deployment to Posit Connect:
+From here, all we'd need to do to deploy our fitted model is pass it off to vetiver for deployment to Posit Connect:
 
 ```{r}
 #| eval: false
-final_fit_vetiver <- vetiver_model(final_fit, "flights")
+final_fit_vetiver <- vetiver_model(final_fit, "simon.couch/flights")
 
 board <- board_connect()
 
