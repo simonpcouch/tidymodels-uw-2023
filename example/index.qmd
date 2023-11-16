@@ -1,0 +1,365 @@
+---
+title: "Modeling flight delays out of Madison, WI"
+subtitle: "A whirlwind tour of the tidymodels."
+format: html
+---
+
+```{r}
+#| eval: false
+if (file.exists("wf_set_fit.rda")) {
+  eval_fits <- FALSE
+  # read outputs in from source:
+  load("wf_set_fit.rda")
+  load("metrics_wf_set.Rda")
+  load("metrics_mars.Rda")
+  load("final_fit_bundled.Rda")
+  final_fit <- bundle::unbundle(final_fit_bundled)
+} else {
+  eval_fits <- TRUE
+}
+```
+
+I've collected some data on all of the outbound flights from Madison, Wisconsin in 2022. In this notebook, we'll use predictors based on the weather, plane, airline, and flight duration to predict whether a flight will be delayed or not. To do so, we will split up the source data, try out many models---from a logistic regression to a boosted tree to a neural network---on the training data, and then finetune the most performant model to generate our final model fit. We can then assess the predictive performance of the final model fit on the test set and prepare the model to be deployed.
+
+## Setup
+
+First, loading the [tidyverse](https://www.tidyverse.org/) and [tidymodels](https://www.tidymodels.org/), along with a few additional tidymodels extension packages:
+
+```{r load-pkgs}
+#| message: false
+#| warning: false
+# for data analysis:
+library(tidyverse)
+
+# for modeling:
+library(tidymodels)
+library(finetune)
+library(bonsai)
+library(baguette)
+```
+
+The [finetune package](https://finetune.tidymodels.org/) will give us additional tuning functionality, while the bonsai and baguette package provide support for additional model types.
+
+tidymodels supports a number of R frameworks for parallel computing:
+
+```{r parallel}
+#| message: false
+# loading needed packages:
+library(doMC)
+library(parallelly)
+
+# check out how many cores we have:
+availableCores()
+
+# register those cores so that tidymodels can see them:
+registerDoMC(cores = max(1, availableCores() - 1))
+```
+
+With a [multi-core setup registered](https://tune.tidymodels.org/articles/extras/optimizations.html), tidymodels will now make use of all of the cores on my computer for expensive computations.
+
+## Data Import
+
+We'll make use of a dataset, msnflights22, containing data on all outbound flights from Madison, Wisconsin in 2022.
+
+```{r load-msnflights22}
+load("msnflights22.rda")
+
+msnflights22
+```
+
+::: callout-note
+You can make your own flights data using the [anyflights](https://simonpcouch.github.io/anyflights/) package! The [`query_data.R`](example/query_data.R) file contains the code used to generate this dataset.
+:::
+
+We'd like to model `delayed`, a binary outcome variable giving whether the flight was delayed by 10 or more minutes.
+
+```{r count-delayed}
+# summarize counts of the outcome variable
+msnflights22 %>%
+  count(delayed)
+```
+
+Predicting flight delays seems quite difficult given the data we have access to. For example, plotting whether a flight is delayed based on precipitation:
+
+```{r}
+# plot 2 predictors, colored by the outcome
+msnflights22 %>%
+  filter(precip != 0) %>%
+  ggplot() +
+  aes(x = wind_speed, y = precip, color = delayed) +
+  geom_jitter()
+```
+
+## Splitting up data
+
+We split data into training and testing sets so that, once we've trained our final model, we can get an honest assessment of the model's performance. Since this data is a time series, we'll allot the first ~10 months to training and the remainder to testing:
+
+```{r}
+# set the seed for random number generation
+set.seed(1)
+
+# split the flights data into
+# * training [jan - oct]
+# * testing  [nov - dec]
+flights_split <- initial_time_split(msnflights22, prop = 5/6)
+flights_train <- training(flights_split)
+flights_test <- testing(flights_split)
+```
+
+Then, we'll resample the training data using a sliding period. 
+
+::: callout-note
+A [sliding period](https://rsample.tidymodels.org/reference/slide-resampling) is a cross-fold validation technique that takes times into account. The tidymodels packages support more basic resampling schemes like bootstrapping and v-fold cross-validation as well---see [the rsample package's website](https://rsample.tidymodels.org/).
+:::
+
+We create 8 folds, where in each fold the analysis set is a 2-month sample of data and the assessment set is the single month following.
+
+```{r}
+set.seed(1)
+flights_folds <- 
+  sliding_period(
+    flights_train, 
+    index = date, 
+    "month", 
+    lookback = 1, 
+    assess_stop = 1
+  )
+
+flights_folds
+```
+
+For example, in the second split,
+
+```{r}
+# training: february, march, april
+training(flights_folds$splits[[2]]) %>% pull(date) %>% month() %>% unique()
+
+# testing: may
+testing(flights_folds$splits[[2]])  %>% pull(date) %>% month() %>% unique()
+```
+
+::: callout-note
+What months will be in the training and testing sets in the third fold?
+:::
+
+## Defining our modeling strategies
+
+Our basic strategy is to first try out a bunch of different modeling approaches, and once we have an initial sense for how they perform, delve further into the one that looks the most promising.
+
+We first define a few [recipes](https://recipes.tidymodels.org/), which specify how to process the inputted data in such a way that machine learning models will know how to work with predictors:
+
+```{r}
+recipe_basic <-
+  recipe(delayed ~ ., flights_train) %>%
+  step_nzv(all_predictors())
+
+recipe_normalize <-
+  recipe_basic %>%
+  step_YeoJohnson(all_double_predictors()) %>%
+  step_normalize(all_double_predictors())
+
+recipe_pca <- 
+  recipe_normalize %>%
+  step_impute_median(all_numeric_predictors()) %>%
+  step_impute_mode(all_nominal_predictors()) %>%
+  step_pca(all_numeric_predictors(), num_comp = tune())
+```
+
+These recipes vary in complexity, from basic checks on the input data to advanced feature engineering techniques like principal component analysis.
+
+We also define several [model specifications](https://parsnip.tidymodels.org/). tidymodels comes with support for all sorts of machine learning algorithms, from neural networks to LightGBM boosted trees to plain old logistic regression:
+
+```{r}
+spec_lr <-
+  logistic_reg() %>%
+  set_mode("classification")
+
+spec_bm <- 
+  bag_mars(num_terms = tune(), prod_degree = tune()) %>%
+  set_engine("earth") %>% 
+  set_mode("classification")
+
+spec_bt <- 
+  bag_tree(cost_complexity = tune(), tree_depth = tune(), min_n = tune()) %>%
+  set_engine("rpart") %>%
+  set_mode("classification")
+
+spec_nn <- 
+  mlp(hidden_units = tune(), penalty = tune(), epochs = tune()) %>%
+  set_engine("nnet", MaxNWts = 15000) %>%
+  set_mode("classification")
+
+spec_svm <- 
+  svm_rbf(cost = tune(), rbf_sigma = tune(), margin = tune()) %>%
+  set_mode("classification")
+
+spec_lgb <-
+  boost_tree(trees = tune(), min_n = tune(), tree_depth = tune(),
+             learn_rate = tune(), stop_iter = 10) %>%
+  set_engine("lightgbm") %>%
+  set_mode("classification")
+```
+
+Note how similar the code for each of these model specifications looks! tidymodels takes care of the "translation" from our unified syntax to the code that these algorithms expect.
+
+If typing all of these out seems cumbersome to you, or you're not sure how to define a model specification that makes sense for your data, the [usemodels](https://usemodels.tidymodels.org/) RStudio addin may help!
+
+## Evaluating models: round 1
+
+We'll pair machine learning models with the recipes that make the most sense for them using [workflow sets](https://workflowsets.tidymodels.org/):
+
+```{r}
+wf_set <-
+  # pair the basic recipe with a boosted tree and logistic regression
+  workflow_set(
+    preproc = list(basic = recipe_basic),
+    models = list(boost_tree = spec_lgb, logistic_reg = spec_lr)
+  ) %>%
+  # pair the recipe that centers and scales input variables
+  # with the bagged models, support vector machine, and neural network
+  bind_rows(
+    workflow_set(
+      preproc = list(normalize = recipe_normalize),
+      models = list(
+        bag_tree = spec_bt,
+        bag_mars = spec_bm,
+        svm_rbf = spec_svm,
+        mlp = spec_nn
+      )
+    )
+  ) %>%
+  # pair those same models with a more involved, principal component
+  # analysis preprocessor
+  bind_rows(
+    workflow_set(
+      preproc = list(pca = recipe_pca),
+      models = list(
+        bag_tree = spec_bt,
+        bag_mars = spec_bm,
+        svm_rbf = spec_svm,
+        mlp = spec_nn
+      )
+    )
+  )
+
+wf_set
+```
+
+Now that we've defined each of our modeling configurations, we'll fit them to the resamples we defined earlier.
+
+```{r}
+#| eval: !expr eval_fits
+wf_set_fit <-
+  workflow_map(
+    wf_set, 
+    fn = "tune_grid", 
+    verbose = TRUE, 
+    seed = 1,
+    resamples = flights_folds,
+    control = control_grid(parallel_over = "everything")
+  )
+```
+
+```{r}
+#| eval: !expr eval_fits
+#| echo: false
+wf_set_fit <-
+  wf_set_fit[
+    map_lgl(wf_set_fit$result, 
+            ~pluck(., ".metrics", 1) %>% inherits("tbl_df"), 
+            "tune_results"),
+  ]
+```
+
+Collecting the information on performance from the resulting object:
+
+```{r collect-metrics}
+#| eval: !expr eval_fits
+# first look at metrics:
+metrics_wf_set <- collect_metrics(wf_set_fit)
+```
+
+```{r save-metrics}
+#| eval: !expr eval_fits
+#| echo: false
+save(metrics_wf_set, file = "metrics_wf_set.rda")
+```
+
+Taking a look at how these models did:
+
+```{r}
+# extract the top roc_auc values
+metrics_wf_set %>%
+  filter(.metric == "roc_auc") %>%
+  arrange(desc(mean)) %>%
+  select(wflow_id, mean, n)
+```
+
+## Evaluating models: round 2
+
+It looks like a bagged MARS model with centered and scaled predictors was considerably more performant than the other proposed models. Let's work with those MARS results and see if we can make any further improvements to performance:
+
+```{r}
+#| eval: !expr eval_fits
+mars_res <- extract_workflow_set_result(wf_set_fit, "normalize_bag_mars")
+
+mars_wflow <-
+  workflow() %>%
+  add_recipe(recipe_basic) %>%
+  add_model(spec_mars)
+
+mars_sim_anneal_fit <-
+  tune_sim_anneal(
+    object = mars_wflow,
+    resamples = flights_folds,
+    iter = 25,
+    metrics = flights_metrics,
+    initial = mars_res,
+    control = control_sim_anneal(verbose = TRUE, parallel_over = "everything")
+  )
+
+metrics_mars <- collect_metrics(mars_sim_anneal_fit, summarize = FALSE)
+```
+
+Looks like we *did* make a small improvement:
+
+```{r}
+metrics_mars
+```
+
+## The final model fit
+
+The `last_fit()` function will take care of fitting the most performant model specification to the whole training dataset:
+
+```{r}
+#| eval: !expr eval_fits
+mars_final_fit <-
+  last_fit(
+    mars_wflow,
+    flights_split
+  )
+
+final_fit <- extract_workflow(mars_final_fit)
+```
+
+```{r}
+#| eval: !expr eval_fits
+#| include: false
+final_fit_bundled <- bundle(final_fit)
+save(final_fit_bundled, file = "final_fit_bundled.rda")
+```
+
+## Deploying to Connect
+
+From here, all we need to do to deploy our fitted model is pass it off to vetiver for deployment to Posit Connect:
+
+```{r}
+#| eval: false
+final_fit_vetiver <- vetiver_model(final_fit, "flights")
+
+board <- board_connect()
+
+vetiver_pin_write(board, final_fit_vetiver)
+
+vetiver_deploy_rsconnect(board, "simon.couch/flights")
+```
