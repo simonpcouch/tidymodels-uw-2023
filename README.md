@@ -5,6 +5,12 @@ This repository contains source code and slides for the talk "Why you should be 
 * The **slides** for the talk are available [here](https://simonpcouch.github.io/tidymodels-uw-2023).
 * The **example notebook** modeling flight delays out of Madison, WI is [here](https://simonpcouch.github.io/tidymodels-uw-2023/example).
 
+To learn more about data science and machine learning with R,
+
+- Data science with the tidyverse: [r4ds.hadley.nz](r4ds.hadley.nz)
+- Machine learning with tidymodels: [tmwr.org](tmwr.org)
+- More example notebooks with tidymodels: [tidymodels.org](tidymodels.org)
+
 ----
 
 In this repository,
