@@ -104,6 +104,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   
 
 </header><p>I’ve collected some data on all of the outbound flights from Madison, Wisconsin in 2022. In this notebook, we’ll use predictors based on the weather, plane, airline, and flight duration to predict whether a flight will be delayed or not. To do so, we will split up the source data, try out many models—from a logistic regression to a boosted tree to a neural network—on the training data, and then finetune the most performant model to generate our final model fit. We can then assess the predictive performance of the final model fit on the test set and prepare the model to be deployed.</p>
+<p>If this is your first time seeing the tidyverse and tidymodels, this notebook will be a wild ride.🤪 Note that most functions in the code chunks are hyperlinks to function documentation, like this one <a href="https://parsnip.tidymodels.org/reference/logistic_reg.html"><code>logistic_reg()</code></a>. For more on the bigger picture,</p>
+<ul>
+<li>Data science with the tidyverse: <a href="r4ds.hadley.nz">r4ds.hadley.nz</a>
+</li>
+<li>Machine learning with tidymodels: <a href="tmwr.org">tmwr.org</a>
+</li>
+<li>Example notebooks with tidymodels: <a href="tidymodels.org">tidymodels.org</a>
+</li>
+</ul>
 <section id="setup" class="level2"><h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <p>First, loading the <a href="https://www.tidyverse.org/">tidyverse</a> and <a href="https://www.tidymodels.org/">tidymodels</a>, along with a few additional tidymodels extension packages:</p>
 <div class="cell">

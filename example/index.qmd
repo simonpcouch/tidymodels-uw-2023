@@ -20,6 +20,12 @@ if (file.exists("wf_set_fit.rda")) {
 
 I've collected some data on all of the outbound flights from Madison, Wisconsin in 2022. In this notebook, we'll use predictors based on the weather, plane, airline, and flight duration to predict whether a flight will be delayed or not. To do so, we will split up the source data, try out many models---from a logistic regression to a boosted tree to a neural network---on the training data, and then finetune the most performant model to generate our final model fit. We can then assess the predictive performance of the final model fit on the test set and prepare the model to be deployed.
 
+If this is your first time seeing the tidyverse and tidymodels, this notebook will be a wild ride.`r emo::ji("zany")` Note that most functions in the code chunks are hyperlinks to function documentation, like this one [`logistic_reg()`](https://parsnip.tidymodels.org/reference/logistic_reg.html). For more on the bigger picture,
+
+- Data science with the tidyverse: [r4ds.hadley.nz](r4ds.hadley.nz)
+- Machine learning with tidymodels: [tmwr.org](tmwr.org)
+- Example notebooks with tidymodels: [tidymodels.org](tidymodels.org)
+
 ## Setup
 
 First, loading the [tidyverse](https://www.tidyverse.org/) and [tidymodels](https://www.tidymodels.org/), along with a few additional tidymodels extension packages:
