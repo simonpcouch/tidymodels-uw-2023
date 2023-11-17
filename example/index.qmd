@@ -289,6 +289,10 @@ wf_set_fit <-
   )
 ```
 
+::: callout-note
+`workflow_map()` is calling `tune_grid()` on each modeling workflow we've created. You can read more about `tune_grid()` [here](https://www.tidymodels.org/start/tuning/).
+:::
+
 ```{r remove-failed-fits}
 #| echo: false
 wf_set_fit <-
@@ -299,9 +303,11 @@ wf_set_fit <-
   ]
 ```
 
-::: callout-note
-`workflow_map()` is calling `tune_grid()` on each modeling workflow we've created. You can read more about `tune_grid()` [here](https://www.tidymodels.org/start/tuning/).
-:::
+```{r print-wf-set-fit}
+wf_set_fit
+```
+
+Note that the `result` column that was previously empty in `wf_set` now contains various tuning results, denoted by `<tune[+]>`, in `wf_set_fit`.
 
 Collecting the information on performance from the resulting object:
 

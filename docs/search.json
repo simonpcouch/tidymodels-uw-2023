@@ -112,6 +112,69 @@
     "text": "Why tidymodels? Deployability\n\nTightly integrated with Posit Workbench and Connect\n\n\n\nWorkbench: scalable, on-demand computational resources\nConnect: share work with collaborators and practitioners"
   },
   {
+    "objectID": "index.html#who-all-is-flying-home-for-the-holidays",
+    "href": "index.html#who-all-is-flying-home-for-the-holidays",
+    "title": "",
+    "section": "Who all is flying home for the holidays?",
+    "text": "Who all is flying home for the holidays?\n\n\n\n\n😬☃️😬🎁😬☃️😬🎅😬🎁😬🎁😬"
+  },
+  {
+    "objectID": "index.html#flights-out-of-madison-wi",
+    "href": "index.html#flights-out-of-madison-wi",
+    "title": "",
+    "section": "Flights out of Madison, WI",
+    "text": "Flights out of Madison, WI\n\nanyflights(\"MSN\", 2022)\n\n\n\n#&gt; # A tibble: 10,754 × 14\n#&gt;   delayed airline     flight origin destination date        hour plane\n#&gt;   &lt;fct&gt;   &lt;chr&gt;       &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;       &lt;date&gt;     &lt;dbl&gt; &lt;fct&gt;\n#&gt; 1 No      Endeavor A… 51     MSN    ATL         2022-01-01     5 N901…\n#&gt; 2 No      PSA Airlin… 59     MSN    CLT         2022-01-01     6 N570…\n#&gt; 3 No      Envoy Air   27     MSN    MIA         2022-01-01     6 N280…\n#&gt; 4 No      American A… 3      MSN    PHX         2022-01-01     6 N662…\n#&gt; 5 Yes     American A… 16     MSN    DFW         2022-01-01     7 N826…\n#&gt; 6 No      SkyWest Ai… 26     MSN    MSP         2022-01-01     7 N282…\n#&gt; # ℹ 10,748 more rows\n#&gt; # ℹ 6 more variables: distance &lt;dbl&gt;, duration &lt;dbl&gt;,\n#&gt; #   wind_speed &lt;dbl&gt;, precip &lt;dbl&gt;, visibility &lt;dbl&gt;,\n#&gt; #   plane_year &lt;int&gt;\n\n\n\n\n\n\n\n\n\nNote\n\n\nSee /example/query_data.R for the actual code to generate this data!"
+  },
+  {
+    "objectID": "index.html#flights-out-of-madison-wi-1",
+    "href": "index.html#flights-out-of-madison-wi-1",
+    "title": "",
+    "section": "Flights out of Madison, WI",
+    "text": "Flights out of Madison, WI\n\n\nAround 17% of flights are delayed."
+  },
+  {
+    "objectID": "index.html#flights-out-of-madison-wi-2",
+    "href": "index.html#flights-out-of-madison-wi-2",
+    "title": "",
+    "section": "Flights out of Madison, WI",
+    "text": "Flights out of Madison, WI"
+  },
+  {
+    "objectID": "index.html#flights-out-of-madison-wi-3",
+    "href": "index.html#flights-out-of-madison-wi-3",
+    "title": "",
+    "section": "Flights out of Madison, WI",
+    "text": "Flights out of Madison, WI"
+  },
+  {
+    "objectID": "index.html#flights-out-of-madison-wi-4",
+    "href": "index.html#flights-out-of-madison-wi-4",
+    "title": "",
+    "section": "Flights out of Madison, WI",
+    "text": "Flights out of Madison, WI\nRound 1: evaluate unique combinations of\n\n\nPreprocessors:\n\nformula (delayed ~ .)\ncenter and scale predictors\nPCA + center and scale predictors\n\n\n…and models:\n\nlogistic regression\nbagged MARS\nbagged decision tree\nneural network\nsupport vector machine\nLightGBM boosted tree"
+  },
+  {
+    "objectID": "index.html#flights-out-of-madison-wi-5",
+    "href": "index.html#flights-out-of-madison-wi-5",
+    "title": "",
+    "section": "Flights out of Madison, WI",
+    "text": "Flights out of Madison, WI"
+  },
+  {
+    "objectID": "index.html#flights-out-of-madison-wi-6",
+    "href": "index.html#flights-out-of-madison-wi-6",
+    "title": "",
+    "section": "Flights out of Madison, WI",
+    "text": "Flights out of Madison, WI\nRound 2: investigate and refine whatever works!"
+  },
+  {
+    "objectID": "index.html#flights-out-of-madison-wi-7",
+    "href": "index.html#flights-out-of-madison-wi-7",
+    "title": "",
+    "section": "Flights out of Madison, WI",
+    "text": "Flights out of Madison, WI"
+  },
+  {
     "objectID": "index.html#resources",
     "href": "index.html#resources",
     "title": "",
@@ -179,7 +242,7 @@
     "href": "example/index.html#evaluating-models-round-1",
     "title": "Modeling flight delays out of Madison, WI🛩",
     "section": "Evaluating models: round 1",
-    "text": "Evaluating models: round 1\nWe’ll pair machine learning models with the recipes that make the most sense for them using workflow sets:\n\nwf_set &lt;-\n  # pair the basic recipe with a boosted tree and logistic regression\n  workflow_set(\n    preproc = list(basic = recipe_basic),\n    models = list(boost_tree = spec_lgb, logistic_reg = spec_lr)\n  ) %&gt;%\n  # pair the recipe that centers and scales input variables\n  # with the bagged models, support vector machine, and neural network\n  bind_rows(\n    workflow_set(\n      preproc = list(normalize = recipe_normalize),\n      models = list(\n        bag_tree = spec_bt,\n        bag_mars = spec_bm,\n        svm_rbf = spec_svm,\n        mlp = spec_nn\n      )\n    )\n  ) %&gt;%\n  # pair those same models with a more involved, principal component\n  # analysis preprocessor\n  bind_rows(\n    workflow_set(\n      preproc = list(pca = recipe_pca),\n      models = list(\n        bag_tree = spec_bt,\n        bag_mars = spec_bm,\n        svm_rbf = spec_svm,\n        mlp = spec_nn\n      )\n    )\n  )\n\nwf_set\n\n# A workflow set/tibble: 10 × 4\n   wflow_id           info             option    result    \n   &lt;chr&gt;              &lt;list&gt;           &lt;list&gt;    &lt;list&gt;    \n 1 basic_boost_tree   &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n 2 basic_logistic_reg &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n 3 normalize_bag_tree &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n 4 normalize_bag_mars &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n 5 normalize_svm_rbf  &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n 6 normalize_mlp      &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n 7 pca_bag_tree       &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n 8 pca_bag_mars       &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n 9 pca_svm_rbf        &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n10 pca_mlp            &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n\n\nNow that we’ve defined each of our modeling configurations, we’ll fit them to the resamples we defined earlier. Here, tune_grid() is applied to each workflow in the workflow set, testing out a set of tuning parameter values for each workflow and assessing the resulting fit.\n\nwf_set_fit &lt;-\n  workflow_map(\n    wf_set, \n    fn = \"tune_grid\", \n    verbose = TRUE, \n    seed = 1,\n    resamples = flights_folds,\n    control = control_grid(parallel_over = \"everything\")\n  )\n\n\n\n\n\n\n\nNote\n\n\n\nworkflow_map() is calling tune_grid() on each modeling workflow we’ve created. You can read more about tune_grid() here.\n\n\nCollecting the information on performance from the resulting object:\n\n# first look at metrics:\nmetrics_wf_set &lt;- collect_metrics(wf_set_fit)\n\nTaking a look at how these models did:\n\n# extract the top roc_auc values\nmetrics_wf_set %&gt;%\n  filter(.metric == \"roc_auc\") %&gt;%\n  arrange(desc(mean)) %&gt;%\n  select(wflow_id, mean, n)\n\n# A tibble: 34 × 3\n   wflow_id            mean     n\n   &lt;chr&gt;              &lt;dbl&gt; &lt;int&gt;\n 1 normalize_bag_mars 0.615     8\n 2 normalize_bag_mars 0.613     8\n 3 normalize_bag_mars 0.606     8\n 4 normalize_bag_mars 0.603     8\n 5 normalize_bag_mars 0.598     8\n 6 normalize_mlp      0.562     8\n 7 basic_boost_tree   0.560     8\n 8 basic_boost_tree   0.559     8\n 9 basic_boost_tree   0.557     8\n10 basic_boost_tree   0.556     8\n# ℹ 24 more rows\n\n\n\n\n\n\n\n\nNote\n\n\n\nWe use one of the default metrics, roc_auc(), to evaluate our models here. Any metric defined using the yardstick package is fair game here (including custom metrics)!\n\n\nAlternatively, we can use the autoplot() method for workflow sets to visualize the same results:\n\nautoplot(wf_set_fit)\n\n\n\n\nIn terms of accuracy(), several of the models we evaluated performed quite well (with values near the event rate). With respect to roc_auc(), though, we can see that the bagged MARS models were clear winners."
+    "text": "Evaluating models: round 1\nWe’ll pair machine learning models with the recipes that make the most sense for them using workflow sets:\n\nwf_set &lt;-\n  # pair the basic recipe with a boosted tree and logistic regression\n  workflow_set(\n    preproc = list(basic = recipe_basic),\n    models = list(boost_tree = spec_lgb, logistic_reg = spec_lr)\n  ) %&gt;%\n  # pair the recipe that centers and scales input variables\n  # with the bagged models, support vector machine, and neural network\n  bind_rows(\n    workflow_set(\n      preproc = list(normalize = recipe_normalize),\n      models = list(\n        bag_tree = spec_bt,\n        bag_mars = spec_bm,\n        svm_rbf = spec_svm,\n        mlp = spec_nn\n      )\n    )\n  ) %&gt;%\n  # pair those same models with a more involved, principal component\n  # analysis preprocessor\n  bind_rows(\n    workflow_set(\n      preproc = list(pca = recipe_pca),\n      models = list(\n        bag_tree = spec_bt,\n        bag_mars = spec_bm,\n        svm_rbf = spec_svm,\n        mlp = spec_nn\n      )\n    )\n  )\n\nwf_set\n\n# A workflow set/tibble: 10 × 4\n   wflow_id           info             option    result    \n   &lt;chr&gt;              &lt;list&gt;           &lt;list&gt;    &lt;list&gt;    \n 1 basic_boost_tree   &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n 2 basic_logistic_reg &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n 3 normalize_bag_tree &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n 4 normalize_bag_mars &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n 5 normalize_svm_rbf  &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n 6 normalize_mlp      &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n 7 pca_bag_tree       &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n 8 pca_bag_mars       &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n 9 pca_svm_rbf        &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n10 pca_mlp            &lt;tibble [1 × 4]&gt; &lt;opts[0]&gt; &lt;list [0]&gt;\n\n\nNow that we’ve defined each of our modeling configurations, we’ll fit them to the resamples we defined earlier. Here, tune_grid() is applied to each workflow in the workflow set, testing out a set of tuning parameter values for each workflow and assessing the resulting fit.\n\nwf_set_fit &lt;-\n  workflow_map(\n    wf_set, \n    fn = \"tune_grid\", \n    verbose = TRUE, \n    seed = 1,\n    resamples = flights_folds,\n    control = control_grid(parallel_over = \"everything\")\n  )\n\n\n\n\n\n\n\nNote\n\n\n\nworkflow_map() is calling tune_grid() on each modeling workflow we’ve created. You can read more about tune_grid() here.\n\n\n\nwf_set_fit\n\n# A workflow set/tibble: 8 × 4\n  wflow_id           info             option    result   \n  &lt;chr&gt;              &lt;list&gt;           &lt;list&gt;    &lt;list&gt;   \n1 basic_boost_tree   &lt;tibble [1 × 4]&gt; &lt;opts[2]&gt; &lt;tune[+]&gt;\n2 normalize_bag_tree &lt;tibble [1 × 4]&gt; &lt;opts[2]&gt; &lt;tune[+]&gt;\n3 normalize_bag_mars &lt;tibble [1 × 4]&gt; &lt;opts[2]&gt; &lt;tune[+]&gt;\n4 normalize_mlp      &lt;tibble [1 × 4]&gt; &lt;opts[2]&gt; &lt;tune[+]&gt;\n5 pca_bag_tree       &lt;tibble [1 × 4]&gt; &lt;opts[2]&gt; &lt;tune[+]&gt;\n6 pca_bag_mars       &lt;tibble [1 × 4]&gt; &lt;opts[2]&gt; &lt;tune[+]&gt;\n7 pca_svm_rbf        &lt;tibble [1 × 4]&gt; &lt;opts[2]&gt; &lt;tune[+]&gt;\n8 pca_mlp            &lt;tibble [1 × 4]&gt; &lt;opts[2]&gt; &lt;tune[+]&gt;\n\n\nNote that the result column that was previously empty in wf_set now contains various tuning results, denoted by &lt;tune[+]&gt;, in wf_set_fit.\nCollecting the information on performance from the resulting object:\n\n# first look at metrics:\nmetrics_wf_set &lt;- collect_metrics(wf_set_fit)\n\nTaking a look at how these models did:\n\n# extract the top roc_auc values\nmetrics_wf_set %&gt;%\n  filter(.metric == \"roc_auc\") %&gt;%\n  arrange(desc(mean)) %&gt;%\n  select(wflow_id, mean, n)\n\n# A tibble: 71 × 3\n   wflow_id            mean     n\n   &lt;chr&gt;              &lt;dbl&gt; &lt;int&gt;\n 1 normalize_bag_mars 0.615     8\n 2 normalize_bag_mars 0.613     8\n 3 pca_svm_rbf        0.608     8\n 4 normalize_bag_mars 0.606     8\n 5 pca_bag_mars       0.604     8\n 6 normalize_bag_mars 0.603     8\n 7 pca_svm_rbf        0.603     8\n 8 pca_bag_mars       0.601     8\n 9 pca_bag_mars       0.598     8\n10 normalize_bag_mars 0.598     8\n# ℹ 61 more rows\n\n\n\n\n\n\n\n\nNote\n\n\n\nWe use one of the default metrics, roc_auc(), to evaluate our models here. Any metric defined using the yardstick package is fair game here (including custom metrics)!\n\n\nAlternatively, we can use the autoplot() method for workflow sets to visualize the same results:\n\nautoplot(wf_set_fit)\n\n\n\n\nIn terms of accuracy(), several of the models we evaluated performed quite well (with values near the event rate). With respect to roc_auc(), though, we can see that the bagged MARS models were clear winners."
   },
   {
     "objectID": "example/index.html#evaluating-models-round-2",
@@ -201,68 +264,5 @@
     "title": "Modeling flight delays out of Madison, WI🛩",
     "section": "Deploying to Connect",
     "text": "Deploying to Connect\nFrom here, all we’d need to do to deploy our fitted model is pass it off to vetiver for deployment to Posit Connect:\n\nfinal_fit_vetiver &lt;- vetiver_model(final_fit, \"simon.couch/flights\")\n\nboard &lt;- board_connect()\n\nvetiver_pin_write(board, final_fit_vetiver)\n\nvetiver_deploy_rsconnect(board, \"simon.couch/flights\")"
-  },
-  {
-    "objectID": "index.html#who-all-is-flying-home-for-the-holidays",
-    "href": "index.html#who-all-is-flying-home-for-the-holidays",
-    "title": "",
-    "section": "Who all is flying home for the holidays?",
-    "text": "Who all is flying home for the holidays?\n\n\n\n\n😬🎅😬🎅😬🎁😬🎁😬🎅😬🎅😬"
-  },
-  {
-    "objectID": "index.html#flights-out-of-madison-wi",
-    "href": "index.html#flights-out-of-madison-wi",
-    "title": "",
-    "section": "Flights out of Madison, WI",
-    "text": "Flights out of Madison, WI\n\nanyflights(\"MSN\", 2022)\n\n\n\n#&gt; # A tibble: 10,754 × 14\n#&gt;   delayed airline     flight origin destination date        hour plane\n#&gt;   &lt;fct&gt;   &lt;chr&gt;       &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;       &lt;date&gt;     &lt;dbl&gt; &lt;fct&gt;\n#&gt; 1 No      Endeavor A… 51     MSN    ATL         2022-01-01     5 N901…\n#&gt; 2 No      PSA Airlin… 59     MSN    CLT         2022-01-01     6 N570…\n#&gt; 3 No      Envoy Air   27     MSN    MIA         2022-01-01     6 N280…\n#&gt; 4 No      American A… 3      MSN    PHX         2022-01-01     6 N662…\n#&gt; 5 Yes     American A… 16     MSN    DFW         2022-01-01     7 N826…\n#&gt; 6 No      SkyWest Ai… 26     MSN    MSP         2022-01-01     7 N282…\n#&gt; # ℹ 10,748 more rows\n#&gt; # ℹ 6 more variables: distance &lt;dbl&gt;, duration &lt;dbl&gt;,\n#&gt; #   wind_speed &lt;dbl&gt;, precip &lt;dbl&gt;, visibility &lt;dbl&gt;,\n#&gt; #   plane_year &lt;int&gt;\n\n\n\n\n\n\n\n\n\nNote\n\n\nSee /example/query_data.R for the actual code to generate this data!"
-  },
-  {
-    "objectID": "index.html#flights-out-of-madison-wi-1",
-    "href": "index.html#flights-out-of-madison-wi-1",
-    "title": "",
-    "section": "Flights out of Madison, WI",
-    "text": "Flights out of Madison, WI\n\n\nAround 17% of flights are delayed."
-  },
-  {
-    "objectID": "index.html#flights-out-of-madison-wi-2",
-    "href": "index.html#flights-out-of-madison-wi-2",
-    "title": "",
-    "section": "Flights out of Madison, WI",
-    "text": "Flights out of Madison, WI"
-  },
-  {
-    "objectID": "index.html#flights-out-of-madison-wi-3",
-    "href": "index.html#flights-out-of-madison-wi-3",
-    "title": "",
-    "section": "Flights out of Madison, WI",
-    "text": "Flights out of Madison, WI"
-  },
-  {
-    "objectID": "index.html#flights-out-of-madison-wi-4",
-    "href": "index.html#flights-out-of-madison-wi-4",
-    "title": "",
-    "section": "Flights out of Madison, WI",
-    "text": "Flights out of Madison, WI\nRound 1: evaluate unique combinations of\n\n\nPreprocessors:\n\nformula (delayed ~ .)\ncenter and scale predictors\nPCA + center and scale predictors\n\n\n…and models:\n\nlogistic regression\nbagged MARS\nbagged decision tree\nneural network\nsupport vector machine\nLightGBM boosted tree"
-  },
-  {
-    "objectID": "index.html#flights-out-of-madison-wi-5",
-    "href": "index.html#flights-out-of-madison-wi-5",
-    "title": "",
-    "section": "Flights out of Madison, WI",
-    "text": "Flights out of Madison, WI"
-  },
-  {
-    "objectID": "index.html#flights-out-of-madison-wi-6",
-    "href": "index.html#flights-out-of-madison-wi-6",
-    "title": "",
-    "section": "Flights out of Madison, WI",
-    "text": "Flights out of Madison, WI\nRound 2: investigate and refine whatever works!"
-  },
-  {
-    "objectID": "index.html#flights-out-of-madison-wi-7",
-    "href": "index.html#flights-out-of-madison-wi-7",
-    "title": "",
-    "section": "Flights out of Madison, WI",
-    "text": "Flights out of Madison, WI"
   }
 ]
