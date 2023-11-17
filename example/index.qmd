@@ -5,17 +5,25 @@ format: html
 ---
 
 ```{r load-intermediate}
-#| echo: false
+#| include: false
 if (file.exists("data/wf_set_fit.rda")) {
   eval_fits <- FALSE
   # read outputs in from source:
   load("data/wf_set_fit.rda")
   load("data/metrics_wf_set.rda")
+  load("data/mars_sim_anneal_fit.rda")
   load("data/metrics_mars_sim_anneal_fit.rda")
   load("data/mars_final_fit.rda")
 } else {
   eval_fits <- TRUE
 }
+
+library(ggplot2)
+theme_set(theme_bw())
+options(
+  ggplot2.discrete.fill = c("#cd4173", "#7e96d5"),
+  ggplot2.discrete.colour = c("#cd4173", "#7e96d5")
+)
 ```
 
 I've collected some data on all of the outbound flights from Madison, Wisconsin in 2022. In this notebook, we'll use predictors based on the weather, plane, airline, and flight duration to predict whether a flight will be delayed or not. To do so, we will split up the source data, try out many models---from a logistic regression to a boosted tree to a neural network---on the training data, and then finetune the most performant model to generate our final model fit. We can then assess the predictive performance of the final model fit on the test set and prepare the model to be deployed.
@@ -35,6 +43,7 @@ First, loading the [tidyverse](https://www.tidyverse.org/) and [tidymodels](http
 #| warning: false
 # for data analysis:
 library(tidyverse)
+library(patchwork)
 
 # for modeling:
 library(tidymodels)
@@ -84,16 +93,28 @@ msnflights22 %>%
   count(delayed)
 ```
 
-Predicting flight delays seems quite difficult given the data we have access to. For example, plotting whether a flight is delayed based on precipitation:
+Predicting flight delays seems quite difficult given the data we have access to. For example, plotting whether a flight is delayed based on precipitation and wind speed:
 
 ```{r plot-predictors}
-#| cache: true
 # plot 2 predictors, colored by the outcome
 msnflights22 %>%
   filter(precip != 0) %>%
   ggplot() +
   aes(x = wind_speed, y = precip, color = delayed) +
   geom_jitter()
+```
+
+Looks like there's a _bit_ of signal in the time of the day of the flight, but those higher-proportion-delayed hours also have quite a bit fewer flights (and thus more variation):
+
+```{r plot-predictors-2}
+(
+  ggplot(msnflights22, aes(x = hour, fill = delayed)) +
+  geom_bar()
+) /
+(
+  ggplot(msnflights22, aes(x = hour, fill = delayed)) +
+  geom_bar(position = "fill") + labs(y = "proportion")
+)
 ```
 
 A machine learning may be able to get some traction here, though.
@@ -267,7 +288,6 @@ wf_set_fit <-
 ```
 
 ```{r remove-failed-fits}
-#| eval: !expr eval_fits
 #| echo: false
 wf_set_fit <-
   wf_set_fit[
@@ -299,9 +319,21 @@ metrics_wf_set %>%
   select(wflow_id, mean, n)
 ```
 
+::: callout-note
+We use one of the default metrics, [`roc_auc()`](https://yardstick.tidymodels.org/reference/roc_auc.html), to evaluate our models here. Any metric defined using the [yardstick](https://yardstick.tidymodels.org/) package is fair game here (including custom metrics)!
+:::
+
+Alternatively, we can use the `autoplot()` method for workflow sets to visualize the same results:
+
+```{r autoplot-wf-set}
+autoplot(wf_set_fit)
+```
+
+In terms of `accuracy()`, several of the models we evaluated performed quite well (with values near the event rate). With respect to `roc_auc()`, though, we can see that the [bagged MARS models](https://parsnip.tidymodels.org/reference/bag_mars.html) were clear winners.
+
 ## Evaluating models: round 2
 
-It looks like a [bagged MARS model](https://parsnip.tidymodels.org/reference/bag_mars.html) with centered and scaled predictors was considerably more performant than the other proposed models. Let's work with those MARS results and see if we can make any further improvements to performance:
+It looks like a bagged MARS model with centered and scaled predictors was considerably more performant than the other proposed models. Let's work with those MARS results and see if we can make any further improvements to performance:
 
 ```{r mars-sim-anneal}
 #| eval: !expr eval_fits
@@ -322,7 +354,7 @@ mars_sim_anneal_fit <-
   )
 ```
 
-Looks like we *did* make a small improvement:
+Looks like we *did* make a small improvement, though the model still doesn't do much better than randomly guessing:
 
 ```{r collect-mars}
 #| eval: false
@@ -336,6 +368,12 @@ collect_metrics(mars_sim_anneal_fit) %>%
 metrics_mars_sim_anneal_fit %>%
   filter(.metric == "roc_auc") %>%
   arrange(desc(mean))
+```
+
+Just like the workflow set result from before, the simulated annealing result also has an `autoplot()` method:
+
+```{r plot-sim-anneal}
+autoplot(mars_sim_anneal_fit)
 ```
 
 We can now train the model with the most optimal performance in cross-validation on the entire training set.
