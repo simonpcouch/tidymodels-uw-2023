@@ -2,13 +2,8 @@
 
 This repository contains source code and slides for the talk "Why you should be using tidymodels" at UW-Madison in November 2023.
 
-<br>
-
-<h3 align=center> [Slides](https://simonpcouch.github.io/tidymodels-uw-2023) &emsp; &emsp; &emsp; &emsp; [Example Notebook](https://simonpcouch.github.io/tidymodels-uw-2023/example) </h3>
-
-<br> 
-
-The slides are a deployed Quarto presentation, and the example notebook is a demo applied analysis on modeling flight delays out of Madison, WI with tidymodels.
+* The **slides** for the talk are available [here](https://simonpcouch.github.io/tidymodels-uw-2023).
+* The **example notebook** modeling flight delays out of Madison, WI is [here](https://simonpcouch.github.io/tidymodels-uw-2023/example).
 
 ----
 
