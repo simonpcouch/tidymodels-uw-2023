@@ -1,3 +1,5 @@
 project:
   type: website
   output-dir: docs
+  post-render: 
+    - downlit.R
