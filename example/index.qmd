@@ -6,13 +6,13 @@ format: html
 
 ```{r}
 #| echo: false
-if (file.exists("wf_set_fit.rda")) {
+if (file.exists("data/wf_set_fit.rda")) {
   eval_fits <- FALSE
   # read outputs in from source:
-  load("wf_set_fit.rda")
-  load("metrics_wf_set.rda")
-  load("metrics_mars_sim_anneal_fit.rda")
-  load("mars_final_fit.rda")
+  load("data/wf_set_fit.rda")
+  load("data/metrics_wf_set.rda")
+  load("data/metrics_mars_sim_anneal_fit.rda")
+  load("data/mars_final_fit.rda")
 } else {
   eval_fits <- TRUE
 }
@@ -67,7 +67,7 @@ With a multi-core setup registered, tidymodels will now make use of all of the c
 We'll make use of a dataset, msnflights22, containing data on all outbound flights from Madison, Wisconsin in 2022.
 
 ```{r load-msnflights22}
-load("msnflights22.rda")
+load("data/msnflights22.rda")
 
 msnflights22
 ```
@@ -286,12 +286,6 @@ Collecting the information on performance from the resulting object:
 #| eval: !expr eval_fits
 # first look at metrics:
 metrics_wf_set <- collect_metrics(wf_set_fit)
-```
-
-```{r save-metrics}
-#| eval: !expr eval_fits
-#| echo: false
-save(metrics_wf_set, file = "metrics_wf_set.rda")
 ```
 
 Taking a look at how these models did:

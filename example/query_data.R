@@ -1,9 +1,12 @@
+# load libraries
 library(tidyverse)
 library(anyflights)
 
+# query data on flights, weather, planes, etc for all
+# out-bound flights from Madison, WI in 2022.
 msnflights22_raw <- anyflights("MSN", 2022)
 
-save(msnflights22_raw, file = "example/msnflights22_raw.rda")
+save(msnflights22_raw, file = "example/data/msnflights22_raw.rda")
 
 msnflights22 <-
   # start with weather data, selecting off relevant columns
@@ -38,4 +41,4 @@ msnflights22 <-
   relocate(delayed, .before = everything()) %>%
   filter(!is.na(delayed))
 
-save(msnflights22, file = "example/msnflights22.rda")
+save(msnflights22, file = "example/data/msnflights22.rda")
