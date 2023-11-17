@@ -67,7 +67,7 @@ msnflights22
 ```
 
 ::: callout-note
-You can make your own flights data using the [anyflights](https://simonpcouch.github.io/anyflights/) package! The [`query_data.R`](example/query_data.R) file contains the code used to generate this dataset.
+You can make your own flights data using the [anyflights](https://simonpcouch.github.io/anyflights/) package! The [`query_data.R`](https://github.com/simonpcouch/tidymodels-uw-2023/blob/main/example/query_data.R) file contains the code used to generate this dataset.
 :::
 
 We'd like to model `delayed`, a binary outcome variable giving whether a given flight was delayed by 10 or more minutes.
