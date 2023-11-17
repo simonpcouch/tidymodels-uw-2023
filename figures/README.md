@@ -1,0 +1,1 @@
+This folder contains images for use in the [presentation](https://simonpcouch.github.io/tidymodels-uw-2023). Nothing too interesting. :)
