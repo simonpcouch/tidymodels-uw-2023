@@ -1,5 +1,5 @@
 ---
-title: "Modeling flight delays out of Madison, WI"
+title: "Modeling flight delays out of Madison, WI`r emo::ji('small airplane')`"
 subtitle: "A whirlwind tour of the tidymodels."
 format: html
 ---
