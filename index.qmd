@@ -232,6 +232,11 @@ theme_set(theme_minimal(base_size = 20))
 
 Think about the modeling problem, not the syntax.
 
+##
+
+![](https://vetiver.rstudio.com/images/ml_ops_cycle.png){fig-align="center"}
+
+
 # Why tidymodels? {background-color="#CA225E"}
 
 ## Why tidymodels?  *Consistency*
@@ -473,12 +478,6 @@ Tightly integrated with Posit Workbench and Connect
 -   Workbench: scalable, on-demand computational resources
 -   Connect: share work with collaborators and practitioners
 
-------------------------------------------------------------------------
-
-## 
-
-![](figures/ml_ops_cycle_tidymodels_plus_posit_team.png){fig-align="center"}
-
 # Applied example`r emo::ji("small airplane")` {background-color="#CA225E"}
 
 ## Who all is flying home for the holidays?
@@ -564,6 +563,22 @@ Preprocessors:
 ## Flights out of Madison, WI
 
 ![](example/index_files/figure-html/plot-sim-anneal-1.png){fig-align="center" width="40%"}
+
+## Flights out of Madison, WI
+
+<br>
+
+See how we carried that analysis out here:
+
+<center>[github.com/simonpcouch/tidymodels-uw-2023]{style="color:#CA225E;"}</center>
+
+## 
+
+![](https://vetiver.rstudio.com/images/ml_ops_cycle.png){fig-align="center"}
+
+## 
+
+![](figures/ml_ops_cycle_tidymodels_plus_posit_team.png){fig-align="center"}
 
 ## Resources
 
