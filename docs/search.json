@@ -25,7 +25,7 @@
     "href": "index.html#roadmap",
     "title": "",
     "section": "Roadmap",
-    "text": "Roadmap\n\n\nWhat is tidymodels?\nWhy tidymodels?\nApplied example\nResources"
+    "text": "Roadmap\n\n\nWhat is tidymodels?\nWhy tidymodels?\nApplied example🛩\nResources"
   },
   {
     "objectID": "index.html#byo-venn-diagram",
@@ -158,7 +158,7 @@
     "href": "example/index.html#data-import",
     "title": "Modeling flight delays out of Madison, WI🛩",
     "section": "Data Import",
-    "text": "Data Import\nWe’ll make use of a dataset, msnflights22, containing data on all outbound flights from Madison, Wisconsin in 2022.\n\nload(\"data/msnflights22.rda\")\n\nmsnflights22\n\n# A tibble: 10,754 × 14\n   delayed airline     flight origin destination date        hour plane distance\n   &lt;fct&gt;   &lt;chr&gt;       &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;       &lt;date&gt;     &lt;dbl&gt; &lt;fct&gt;    &lt;dbl&gt;\n 1 No      Endeavor A… 51     MSN    ATL         2022-01-01     5 N901…      707\n 2 No      PSA Airlin… 59     MSN    CLT         2022-01-01     6 N570…      708\n 3 No      Envoy Air   27     MSN    MIA         2022-01-01     6 N280…     1300\n 4 No      American A… 3      MSN    PHX         2022-01-01     6 N662…     1396\n 5 Yes     American A… 16     MSN    DFW         2022-01-01     7 N826…      821\n 6 No      SkyWest Ai… 26     MSN    MSP         2022-01-01     7 N282…      228\n 7 No      United Air… 1      MSN    EWR         2022-01-01     7 &lt;NA&gt;       799\n 8 No      United Air… 6      MSN    DEN         2022-01-01     8 N830…      826\n 9 No      Republic A… 29     MSN    ORD         2022-01-01     8 N654…      109\n10 No      Endeavor A… 62     MSN    DTW         2022-01-01     9 N582…      311\n# ℹ 10,744 more rows\n# ℹ 5 more variables: duration &lt;dbl&gt;, wind_speed &lt;dbl&gt;, precip &lt;dbl&gt;,\n#   visibility &lt;dbl&gt;, plane_year &lt;int&gt;\n\n\n\n\n\n\n\n\nNote\n\n\n\nYou can make your own flights data using the anyflights package! The query_data.R file contains the code used to generate this dataset.\n\n\nWe’d like to model delayed, a binary outcome variable giving whether a given flight was delayed by 10 or more minutes.\n\n# summarize counts of the outcome variable\nmsnflights22 %&gt;%\n  count(delayed)\n\n# A tibble: 2 × 2\n  delayed     n\n  &lt;fct&gt;   &lt;int&gt;\n1 Yes      1825\n2 No       8929\n\n\nPredicting flight delays seems quite difficult given the data we have access to. For example, plotting whether a flight is delayed based on precipitation and wind speed:\n\n# plot 2 predictors, colored by the outcome\nmsnflights22 %&gt;%\n  filter(precip != 0) %&gt;%\n  ggplot() +\n  aes(x = wind_speed, y = precip, color = delayed) +\n  geom_jitter()\n\n\n\n\nLooks like there’s a bit of signal in the time of the day of the flight, but those higher-proportion-delayed hours also have quite a bit fewer flights (and thus more variation):\n\n(\n  ggplot(msnflights22, aes(x = hour, fill = delayed)) +\n  geom_bar()\n) /\n(\n  ggplot(msnflights22, aes(x = hour, fill = delayed)) +\n  geom_bar(position = \"fill\") + labs(y = \"proportion\")\n)\n\n\n\n\nA machine learning may be able to get some traction here, though."
+    "text": "Data Import\nWe’ll make use of a dataset, msnflights22, containing data on all outbound flights from Madison, Wisconsin in 2022.\n\nload(\"data/msnflights22.rda\")\n\nmsnflights22\n\n# A tibble: 10,754 × 14\n   delayed airline     flight origin destination date        hour plane distance\n   &lt;fct&gt;   &lt;chr&gt;       &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;       &lt;date&gt;     &lt;dbl&gt; &lt;fct&gt;    &lt;dbl&gt;\n 1 No      Endeavor A… 51     MSN    ATL         2022-01-01     5 N901…      707\n 2 No      PSA Airlin… 59     MSN    CLT         2022-01-01     6 N570…      708\n 3 No      Envoy Air   27     MSN    MIA         2022-01-01     6 N280…     1300\n 4 No      American A… 3      MSN    PHX         2022-01-01     6 N662…     1396\n 5 Yes     American A… 16     MSN    DFW         2022-01-01     7 N826…      821\n 6 No      SkyWest Ai… 26     MSN    MSP         2022-01-01     7 N282…      228\n 7 No      United Air… 1      MSN    EWR         2022-01-01     7 &lt;NA&gt;       799\n 8 No      United Air… 6      MSN    DEN         2022-01-01     8 N830…      826\n 9 No      Republic A… 29     MSN    ORD         2022-01-01     8 N654…      109\n10 No      Endeavor A… 62     MSN    DTW         2022-01-01     9 N582…      311\n# ℹ 10,744 more rows\n# ℹ 5 more variables: duration &lt;dbl&gt;, wind_speed &lt;dbl&gt;, precip &lt;dbl&gt;,\n#   visibility &lt;dbl&gt;, plane_year &lt;int&gt;\n\n\n\n\n\n\n\n\nNote\n\n\n\nYou can make your own flights data using the anyflights package! The query_data.R file contains the code used to generate this dataset.\n\n\nWe’d like to model delayed, a binary outcome variable giving whether a given flight was delayed by 10 or more minutes.\n\n# summarize counts of the outcome variable\nggplot(msnflights22) +\n  aes(x = delayed) +\n  geom_bar(fill = \"#cd4173\")\n\n\n\n\nPredicting flight delays seems quite difficult given the data we have access to. For example, plotting whether a flight is delayed based on precipitation and wind speed:\n\n# plot 2 predictors, colored by the outcome\nmsnflights22 %&gt;%\n  filter(precip != 0) %&gt;%\n  ggplot() +\n  aes(x = wind_speed, y = precip, color = delayed) +\n  geom_jitter()\n\n\n\n\nLooks like there’s a bit of signal in the time of the day of the flight, but those higher-proportion-delayed hours also have quite a bit fewer flights (and thus more variation):\n\n(\n  ggplot(msnflights22, aes(x = hour, fill = delayed)) +\n  geom_bar()\n) /\n(\n  ggplot(msnflights22, aes(x = hour, fill = delayed)) +\n  geom_bar(position = \"fill\") + labs(y = \"proportion\")\n)\n\n\n\n\nA machine learning may be able to get some traction here, though."
   },
   {
     "objectID": "example/index.html#splitting-up-data",
@@ -201,5 +201,68 @@
     "title": "Modeling flight delays out of Madison, WI🛩",
     "section": "Deploying to Connect",
     "text": "Deploying to Connect\nFrom here, all we’d need to do to deploy our fitted model is pass it off to vetiver for deployment to Posit Connect:\n\nfinal_fit_vetiver &lt;- vetiver_model(final_fit, \"simon.couch/flights\")\n\nboard &lt;- board_connect()\n\nvetiver_pin_write(board, final_fit_vetiver)\n\nvetiver_deploy_rsconnect(board, \"simon.couch/flights\")"
+  },
+  {
+    "objectID": "index.html#who-all-is-flying-home-for-the-holidays",
+    "href": "index.html#who-all-is-flying-home-for-the-holidays",
+    "title": "",
+    "section": "Who all is flying home for the holidays?",
+    "text": "Who all is flying home for the holidays?\n\n\n\n\n😬☃️😬☃️😬🎅😬🎅😬☃️😬🎅😬"
+  },
+  {
+    "objectID": "index.html#flights-out-of-madison-wi",
+    "href": "index.html#flights-out-of-madison-wi",
+    "title": "",
+    "section": "Flights out of Madison, WI",
+    "text": "Flights out of Madison, WI\n\nanyflights(\"MSN\", 2022)\n\n\n\n#&gt; # A tibble: 10,754 × 14\n#&gt;   delayed airline     flight origin destination date        hour plane\n#&gt;   &lt;fct&gt;   &lt;chr&gt;       &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;       &lt;date&gt;     &lt;dbl&gt; &lt;fct&gt;\n#&gt; 1 No      Endeavor A… 51     MSN    ATL         2022-01-01     5 N901…\n#&gt; 2 No      PSA Airlin… 59     MSN    CLT         2022-01-01     6 N570…\n#&gt; 3 No      Envoy Air   27     MSN    MIA         2022-01-01     6 N280…\n#&gt; 4 No      American A… 3      MSN    PHX         2022-01-01     6 N662…\n#&gt; 5 Yes     American A… 16     MSN    DFW         2022-01-01     7 N826…\n#&gt; 6 No      SkyWest Ai… 26     MSN    MSP         2022-01-01     7 N282…\n#&gt; # ℹ 10,748 more rows\n#&gt; # ℹ 6 more variables: distance &lt;dbl&gt;, duration &lt;dbl&gt;,\n#&gt; #   wind_speed &lt;dbl&gt;, precip &lt;dbl&gt;, visibility &lt;dbl&gt;,\n#&gt; #   plane_year &lt;int&gt;\n\n\n\n\n\n\n\n\n\nNote\n\n\nSee /example/query_data.R for the actual code to generate this data!"
+  },
+  {
+    "objectID": "index.html#flights-out-of-madison-wi-1",
+    "href": "index.html#flights-out-of-madison-wi-1",
+    "title": "",
+    "section": "Flights out of Madison, WI",
+    "text": "Flights out of Madison, WI\n\n\nAround 17% of flights are delayed."
+  },
+  {
+    "objectID": "index.html#flights-out-of-madison-wi-2",
+    "href": "index.html#flights-out-of-madison-wi-2",
+    "title": "",
+    "section": "Flights out of Madison, WI",
+    "text": "Flights out of Madison, WI"
+  },
+  {
+    "objectID": "index.html#flights-out-of-madison-wi-3",
+    "href": "index.html#flights-out-of-madison-wi-3",
+    "title": "",
+    "section": "Flights out of Madison, WI",
+    "text": "Flights out of Madison, WI"
+  },
+  {
+    "objectID": "index.html#flights-out-of-madison-wi-4",
+    "href": "index.html#flights-out-of-madison-wi-4",
+    "title": "",
+    "section": "Flights out of Madison, WI",
+    "text": "Flights out of Madison, WI\nRound 1: evaluate unique combinations of\n\n\nPreprocessors:\n\nformula (delayed ~ .)\ncenter and scale predictors\nPCA + center and scale predictors\n\n\n…and models:\n\nlogistic regression\nbagged MARS\nbagged decision tree\nneural network\nsupport vector machine\nLightGBM boosted tree"
+  },
+  {
+    "objectID": "index.html#flights-out-of-madison-wi-5",
+    "href": "index.html#flights-out-of-madison-wi-5",
+    "title": "",
+    "section": "Flights out of Madison, WI",
+    "text": "Flights out of Madison, WI"
+  },
+  {
+    "objectID": "index.html#flights-out-of-madison-wi-6",
+    "href": "index.html#flights-out-of-madison-wi-6",
+    "title": "",
+    "section": "Flights out of Madison, WI",
+    "text": "Flights out of Madison, WI\nRound 2: investigate and refine whatever works!"
+  },
+  {
+    "objectID": "index.html#flights-out-of-madison-wi-7",
+    "href": "index.html#flights-out-of-madison-wi-7",
+    "title": "",
+    "section": "Flights out of Madison, WI",
+    "text": "Flights out of Madison, WI"
   }
 ]

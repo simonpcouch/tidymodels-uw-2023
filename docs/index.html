@@ -467,7 +467,7 @@
 <ul>
 <li class="fragment">What is tidymodels?</li>
 <li class="fragment">Why tidymodels?</li>
-<li class="fragment">Applied example</li>
+<li class="fragment">Applied example🛩</li>
 <li class="fragment">Resources</li>
 </ul>
 </div>
@@ -481,10 +481,10 @@
 
 <p><br></p>
 <blockquote>
-<em>The tidymodels framework is a collection of packages for modeling and machine learning using tidyverse principles.</em>
+<p><em>The tidymodels framework is a collection of packages for modeling and machine learning using tidyverse principles.</em></p>
 <p style="text-align:right;">
-- tidymodels.org
-</p>
+</p><p>- tidymodels.org</p>
+<p></p>
 </blockquote>
 <div class="fragment">
 <p><br></p>
@@ -815,7 +815,112 @@
 <section id="section-1" class="slide level2">
 <h2></h2>
 
-<img data-src="figures/ml_ops_cycle_tidymodels_plus_posit_team.png" class="r-stretch quarto-figure-center"></section>
+<img data-src="figures/ml_ops_cycle_tidymodels_plus_posit_team.png" class="r-stretch quarto-figure-center"></section></section>
+<section>
+<section id="applied-example" class="title-slide slide level1 center" data-background-color="#CA225E">
+<h1>Applied example🛩</h1>
+
+</section>
+<section id="who-all-is-flying-home-for-the-holidays" class="slide level2">
+<h2>Who all is flying home for the holidays?</h2>
+<div class="fragment">
+<p><br></p>
+<center>
+<h2>
+😬☃️😬☃️😬🎅😬🎅😬☃️😬🎅😬
+</h2>
+</center>
+</div>
+</section>
+<section id="flights-out-of-madison-wi" class="slide level2">
+<h2>Flights out of Madison, WI</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">anyflights</span>(<span class="st">"MSN"</span>, <span class="dv">2022</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<div class="cell">
+<pre><code>#&gt; # A tibble: 10,754 × 14
+#&gt;   delayed airline     flight origin destination date        hour plane
+#&gt;   &lt;fct&gt;   &lt;chr&gt;       &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;       &lt;date&gt;     &lt;dbl&gt; &lt;fct&gt;
+#&gt; 1 No      Endeavor A… 51     MSN    ATL         2022-01-01     5 N901…
+#&gt; 2 No      PSA Airlin… 59     MSN    CLT         2022-01-01     6 N570…
+#&gt; 3 No      Envoy Air   27     MSN    MIA         2022-01-01     6 N280…
+#&gt; 4 No      American A… 3      MSN    PHX         2022-01-01     6 N662…
+#&gt; 5 Yes     American A… 16     MSN    DFW         2022-01-01     7 N826…
+#&gt; 6 No      SkyWest Ai… 26     MSN    MSP         2022-01-01     7 N282…
+#&gt; # ℹ 10,748 more rows
+#&gt; # ℹ 6 more variables: distance &lt;dbl&gt;, duration &lt;dbl&gt;,
+#&gt; #   wind_speed &lt;dbl&gt;, precip &lt;dbl&gt;, visibility &lt;dbl&gt;,
+#&gt; #   plane_year &lt;int&gt;</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>See <code>/example/query_data.R</code> for the actual code to generate this data!</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="flights-out-of-madison-wi-1" class="slide level2">
+<h2>Flights out of Madison, WI</h2>
+
+<img data-src="example/index_files/figure-html/count-delayed-1.png" style="width:30.0%" class="r-stretch quarto-figure-center"><div class="fragment">
+<p>Around 17% of flights are delayed.</p>
+</div>
+</section>
+<section id="flights-out-of-madison-wi-2" class="slide level2">
+<h2>Flights out of Madison, WI</h2>
+
+<img data-src="example/index_files/figure-html/plot-predictors-1.png" style="width:40.0%" class="r-stretch quarto-figure-center"></section>
+<section id="flights-out-of-madison-wi-3" class="slide level2">
+<h2>Flights out of Madison, WI</h2>
+
+<img data-src="example/index_files/figure-html/plot-predictors-2-1.png" style="width:40.0%" class="r-stretch quarto-figure-center"></section>
+<section id="flights-out-of-madison-wi-4" class="slide level2">
+<h2>Flights out of Madison, WI</h2>
+<p><strong>Round 1</strong>: evaluate unique combinations of</p>
+<div class="columns">
+<div class="column" style="width:50%;">
+<p>Preprocessors:</p>
+<ul>
+<li>formula (<code>delayed ~ .</code>)</li>
+<li>center and scale predictors</li>
+<li>PCA + center and scale predictors</li>
+</ul>
+</div><div class="column" style="width:50%;">
+<p>…and models:</p>
+<ul>
+<li>logistic regression</li>
+<li>bagged MARS</li>
+<li>bagged decision tree</li>
+<li>neural network</li>
+<li>support vector machine</li>
+<li>LightGBM boosted tree</li>
+</ul>
+</div>
+</div>
+</section>
+<section id="flights-out-of-madison-wi-5" class="slide level2">
+<h2>Flights out of Madison, WI</h2>
+
+<img data-src="example/index_files/figure-html/autoplot-wf-set-1.png" style="width:50.0%" class="r-stretch quarto-figure-center"></section>
+<section id="flights-out-of-madison-wi-6" class="slide level2">
+<h2>Flights out of Madison, WI</h2>
+<p><strong>Round 2</strong>: investigate and refine whatever works!</p>
+</section>
+<section id="flights-out-of-madison-wi-7" class="slide level2">
+<h2>Flights out of Madison, WI</h2>
+
+<img data-src="example/index_files/figure-html/plot-sim-anneal-1.png" style="width:40.0%" class="r-stretch quarto-figure-center"></section>
 <section id="resources" class="slide level2">
 <h2>Resources</h2>
 <div class="columns">

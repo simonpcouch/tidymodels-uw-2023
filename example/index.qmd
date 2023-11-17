@@ -87,10 +87,12 @@ You can make your own flights data using the [anyflights](https://simonpcouch.gi
 
 We'd like to model `delayed`, a binary outcome variable giving whether a given flight was delayed by 10 or more minutes.
 
+
 ```{r count-delayed}
 # summarize counts of the outcome variable
-msnflights22 %>%
-  count(delayed)
+ggplot(msnflights22) +
+  aes(x = delayed) +
+  geom_bar(fill = "#cd4173")
 ```
 
 Predicting flight delays seems quite difficult given the data we have access to. For example, plotting whether a flight is delayed based on precipitation and wind speed:

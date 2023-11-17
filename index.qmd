@@ -91,88 +91,90 @@ theme_set(theme_minimal(base_size = 20))
 
 <!-- who are you? tidymodels in academic research -- ask about listener's role and field of study -->
 
+. . .
+
+![](figures/publications/covid_infectious-diseases.png){.absolute top="205" left="210" width="400" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
+
+![](figures/institutions/ubc.png){.absolute top="90" left="50" width="80"} ![](figures/institutions/utoronto.png){.absolute top="90" left="120" width="80"}
 
 . . .
 
-![](figures/publications/covid_infectious-diseases.png){.absolute top=205 left=210 width="400" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
+![](figures/publications/alcoholism_nature.png){.absolute top="250" left="280" width="400" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
 
-![](figures/institutions/ubc.png){.absolute top=90 left=50 width="80"}
-![](figures/institutions/utoronto.png){.absolute top=90 left=120 width="80"}
+![](figures/institutions/boston.png){.absolute top="105" left="190" width="80"}
 
-. . .
-
-![](figures/publications/alcoholism_nature.png){.absolute top=250 left=280 width="400" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
-
-![](figures/institutions/boston.png){.absolute top=105 left=190 width="80"}
-
-![](figures/institutions/mgh.png){.absolute top=90 left=270 width="80"}
+![](figures/institutions/mgh.png){.absolute top="90" left="270" width="80"}
 
 . . .
 
-![](figures/publications/terrestrial-nature_pnas.png){.absolute top=300 left=350 width="400" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
+![](figures/publications/terrestrial-nature_pnas.png){.absolute top="300" left="350" width="400" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
 
-![](figures/institutions/uarizona.png){.absolute top=90 left=350 width="80"}
+![](figures/institutions/uarizona.png){.absolute top="90" left="350" width="80"}
 
-![](figures/institutions/max_planck.png){.absolute top=90 left=430 width="80"}
+![](figures/institutions/max_planck.png){.absolute top="90" left="430" width="80"}
 
-![](figures/institutions/u_hong_kong.png){.absolute top=105 left=510 width="80"}
-
-. . .
-
-![](figures/publications/coffee_nature.png){.absolute top=350 left=420 width="400" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
-
-![](figures/institutions/oxford.png){.absolute top=90 left=590 width="80"}
-
-![](figures/institutions/imperial_london.png){.absolute top=105 left=670 width="80"}
+![](figures/institutions/u_hong_kong.png){.absolute top="105" left="510" width="80"}
 
 . . .
 
-![](figures/publications/tumors_neuro-oncology.png){.absolute top=400 left=490 width="400" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
+![](figures/publications/coffee_nature.png){.absolute top="350" left="420" width="400" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
 
-![](figures/institutions/baylor.png){.absolute top=90 left=750 width="80"}
+![](figures/institutions/oxford.png){.absolute top="90" left="590" width="80"}
 
-![](figures/institutions/cwru.png){.absolute top=90 left=830 width="80"}
+![](figures/institutions/imperial_london.png){.absolute top="105" left="670" width="80"}
 
 . . .
 
-![](figures/publications/gut-microbiota_cell.png){.absolute top=450 left=560 width="400" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
+![](figures/publications/tumors_neuro-oncology.png){.absolute top="400" left="490" width="400" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
 
-![](figures/institutions/stanford.png){.absolute top=90 left=910 width="80"}
+![](figures/institutions/baylor.png){.absolute top="90" left="750" width="80"}
+
+![](figures/institutions/cwru.png){.absolute top="90" left="830" width="80"}
+
+. . .
+
+![](figures/publications/gut-microbiota_cell.png){.absolute top="450" left="560" width="400" style="box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);"}
+
+![](figures/institutions/stanford.png){.absolute top="90" left="910" width="80"}
 
 ## Roadmap
 
-::: {.incremental}
-- What is tidymodels?
-- Why tidymodels?
-- Applied example
-- Resources
+::: incremental
+-   What is tidymodels?
+-   Why tidymodels?
+-   Applied example`r emo::ji("small airplane")`
+-   Resources
 :::
 
 # What is tidymodels? {background-color="#CA225E"}
 
-----
+------------------------------------------------------------------------
 
 <br>
 
-> _The tidymodels framework is a collection of packages for modeling and machine learning using tidyverse principles._
-> <p style="text-align:right;">\- tidymodels.org</p>
+> *The tidymodels framework is a collection of packages for modeling and machine learning using tidyverse principles.*
+>
+> <p style="text-align:right;">
+>
+> \- tidymodels.org
+>
+> </p>
 
 . . .
 
-<br> 
+<br>
 
 ...so what is modeling and machine learning?
 
 ## BYO Venn Diagram
 
-
 ![](figures/byo_venn_diagram.png){fig-align="center"}
 
------
+------------------------------------------------------------------------
 
 <br><br>
 
-> _The tidymodels framework is a collection of packages for safe, performant, and expressive supervised predictive modeling on tabular data._
+> *The tidymodels framework is a collection of packages for safe, performant, and expressive supervised predictive modeling on tabular data.*
 
 . . .
 
@@ -180,43 +182,41 @@ theme_set(theme_minimal(base_size = 20))
 
 `r emo::ji("woozy_face")`
 
-
-----
+------------------------------------------------------------------------
 
 <br><br>
 
-> _The tidymodels framework is a collection of packages for safe, performant, and expressive <span style="color:#CA225E">supervised predictive modeling</span> on tabular data._
+> *The tidymodels framework is a collection of packages for safe, performant, and expressive [supervised predictive modeling]{style="color:#CA225E"} on tabular data.*
 
 <br>
 
 `r emo::ji("woozy_face")`
 
-
-----
+------------------------------------------------------------------------
 
 <br><br>
 
-> _The tidymodels framework is a collection of packages for safe, performant, and expressive supervised predictive modeling on <span style="color:#CA225E">tabular data</span>._
+> *The tidymodels framework is a collection of packages for safe, performant, and expressive supervised predictive modeling on [tabular data]{style="color:#CA225E"}.*
 
 <br>
 
 `r emo::ji("woozy_face")`
 
-----
+------------------------------------------------------------------------
 
 <br><br>
 
-> _The tidymodels framework is a collection of packages for <span style="color:#CA225E">safe, performant, and expressive</span> supervised predictive modeling on tabular data._
+> *The tidymodels framework is a collection of packages for [safe, performant, and expressive]{style="color:#CA225E"} supervised predictive modeling on tabular data.*
 
 <br>
 
 `r emo::ji("woozy_face")`
 
-----
+------------------------------------------------------------------------
 
 <br><br>
 
-> _The tidymodels framework is a collection of packages for safe, performant, and expressive supervised predictive modeling on tabular data._
+> *The tidymodels framework is a collection of packages for safe, performant, and expressive supervised predictive modeling on tabular data.*
 
 <br>
 
@@ -224,7 +224,7 @@ theme_set(theme_minimal(base_size = 20))
 
 . . .
 
-<br> 
+<br>
 
 Think about the modeling problem, not the syntax.
 
@@ -240,15 +240,15 @@ How many different ways can you think of to fit a linear model in R?
 
 The blessing:
 
-* Many statistical modeling practitioners implement methods in R
+-   Many statistical modeling practitioners implement methods in R
 
 The curse:
 
-* Many statistical modeling practitioners implement methods in R
+-   Many statistical modeling practitioners implement methods in R
 
 ## Why tidymodels?  *Consistency*
 
-. . . 
+. . .
 
 ```{r}
 mtcars
@@ -371,7 +371,7 @@ model <-
 
 -   Implementations of the same machine learning model give differing results, resulting in **irreproducibility** of modeling results.
 
------
+------------------------------------------------------------------------
 
 ## Why tidymodels?  *Safety*
 
@@ -466,14 +466,100 @@ Tightly integrated with Posit Workbench and Connect
 
 . . .
 
-* Workbench: scalable, on-demand computational resources
-* Connect: share work with collaborators and practitioners
+-   Workbench: scalable, on-demand computational resources
+-   Connect: share work with collaborators and practitioners
 
 ------------------------------------------------------------------------
 
 ## 
 
 ![](figures/ml_ops_cycle_tidymodels_plus_posit_team.png){fig-align="center"}
+
+# Applied example`r emo::ji("small airplane")` {background-color="#CA225E"}
+
+## Who all is flying home for the holidays?
+
+. . .
+
+<br>
+
+<center><h2>`r emo::ji("grimace")``r emo::ji("christmas")``r emo::ji("grimace")``r emo::ji("christmas")``r emo::ji("grimace")``r emo::ji("christmas")``r emo::ji("grimace")``r emo::ji("christmas")``r emo::ji("grimace")``r emo::ji("christmas")``r emo::ji("grimace")``r emo::ji("christmas")``r emo::ji("grimace") `</h2></center>
+
+## Flights out of Madison, WI
+
+```{r}
+#| eval: false
+anyflights("MSN", 2022)
+```
+
+. . .
+
+```{r}
+#| echo: false
+load("example/data/msnflights22.rda")
+
+print(msnflights22, n = 6)
+```
+
+. . .
+
+::: callout-note
+See `/example/query_data.R` for the actual code to generate this data!
+:::
+
+## Flights out of Madison, WI
+
+![](example/index_files/figure-html/count-delayed-1.png){fig-align="center" width="30%"}
+
+. . .
+
+Around `r round(mean(msnflights22$delayed == "Yes"), 3) * 100`% of flights are delayed.
+
+## Flights out of Madison, WI
+
+![](example/index_files/figure-html/plot-predictors-1.png){fig-align="center" width="40%"}
+
+## Flights out of Madison, WI
+
+![](example/index_files/figure-html/plot-predictors-2-1.png){fig-align="center" width="40%"}
+
+## Flights out of Madison, WI
+
+**Round 1**: evaluate unique combinations of
+
+::: columns
+::: {.column width="50%"}
+Preprocessors:
+
+-   formula (`delayed ~ .`)
+-   center and scale predictors
+-   PCA + center and scale predictors
+:::
+
+::: {.column width="50%"}
+...and models:
+
+-   logistic regression
+-   bagged MARS
+-   bagged decision tree
+-   neural network
+-   support vector machine
+-   LightGBM boosted tree
+:::
+:::
+
+
+## Flights out of Madison, WI
+
+![](example/index_files/figure-html/autoplot-wf-set-1.png){fig-align="center" width="50%"}
+
+## Flights out of Madison, WI
+
+**Round 2**: investigate and refine whatever works!
+
+## Flights out of Madison, WI
+
+![](example/index_files/figure-html/plot-sim-anneal-1.png){fig-align="center" width="40%"}
 
 ## Resources
 
