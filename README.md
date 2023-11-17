@@ -3,7 +3,7 @@
 This repository contains source code and slides for the talk "Why you should be using tidymodels" at UW-Madison in November 2023.
 
 * The **slides** for the talk are available [here](https://simonpcouch.github.io/tidymodels-uw-2023).
-* The **example notebook** modeling flight delays out of Madison, WI is [here](https://simonpcouch.github.io/tidymodels-uw-2023/example).`r emo::ji('small airplane')`
+* The **example notebook** modeling flight delays out of Madison, WI is [here](https://simonpcouch.github.io/tidymodels-uw-2023/example).🛩
 
 To learn more about data science and machine learning with R,
 
