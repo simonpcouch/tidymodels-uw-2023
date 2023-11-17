@@ -134,6 +134,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span></span>
 <span></span>
+<span></span>
 <span><span class="co"># for data analysis:</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
@@ -149,6 +150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
+<span></span>
 <span></span>
 <span></span>
 <span></span>
@@ -193,6 +195,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span></span>
 <span></span>
 <span></span>
+<span></span>
 <span><span class="co"># register those cores so that tidymodels can see them:</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/doMC/man/registerDoMC.html">registerDoMC</a></span><span class="op">(</span>cores <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://parallelly.futureverse.org/reference/availableCores.html">availableCores</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -202,6 +205,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
+<span></span>
 <span></span>
 <span></span>
 <span></span>
@@ -273,6 +277,7 @@ Note
 <span></span>
 <span></span>
 <span></span>
+<span></span>
 <span><span class="co"># summarize counts of the outcome variable</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">msnflights22</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">delayed</span><span class="op">)</span> <span class="op">+</span></span>
@@ -285,6 +290,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
+<span></span>
 <span></span>
 <span></span>
 <span></span>
@@ -315,6 +321,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
+<span></span>
 <span></span>
 <span></span>
 <span></span>
@@ -365,6 +372,7 @@ Note
 <span></span>
 <span></span>
 <span></span>
+<span></span>
 <span><span class="co"># set the seed for random number generation</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span></span>
@@ -391,6 +399,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
+<span></span>
 <span></span>
 <span></span>
 <span></span>
@@ -453,6 +462,7 @@ Note
 <span></span>
 <span></span>
 <span></span>
+<span></span>
 <span><span class="co"># training: february, march, april</span></span>
 <span><span class="fu">training</span><span class="op">(</span><span class="va">flights_folds</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -460,6 +470,7 @@ Note
 </div>
 <div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
+<span></span>
 <span></span>
 <span></span>
 <span></span>
@@ -517,6 +528,7 @@ Note
 <span></span>
 <span></span>
 <span></span>
+<span></span>
 <span><span class="va">recipe_basic</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">recipe</span><span class="op">(</span><span class="va">delayed</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">flights_train</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">step_nzv</span><span class="op">(</span><span class="fu">all_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
@@ -537,6 +549,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
+<span></span>
 <span></span>
 <span></span>
 <span></span>
@@ -589,6 +602,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
+<span></span>
 <span></span>
 <span></span>
 <span></span>
@@ -675,6 +689,7 @@ Note
 <span></span>
 <span></span>
 <span></span>
+<span></span>
 <span><span class="va">wf_set_fit</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">workflow_map</span><span class="op">(</span></span>
 <span>    <span class="va">wf_set</span>, </span>
@@ -718,6 +733,7 @@ Note
 <span></span>
 <span></span>
 <span></span>
+<span></span>
 <span><span class="co"># first look at metrics:</span></span>
 <span><span class="va">metrics_wf_set</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tune.tidymodels.org/reference/collect_predictions.html">collect_metrics</a></span><span class="op">(</span><span class="va">wf_set_fit</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -725,6 +741,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
+<span></span>
 <span></span>
 <span></span>
 <span></span>
@@ -796,6 +813,7 @@ Note
 <span></span>
 <span></span>
 <span></span>
+<span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">wf_set_fit</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/autoplot-wf-set-1.png" class="img-fluid" width="672"></p>
@@ -807,6 +825,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
+<span></span>
 <span></span>
 <span></span>
 <span></span>
@@ -843,6 +862,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
+<span></span>
 <span></span>
 <span></span>
 <span></span>
@@ -900,6 +920,7 @@ Note
 <span></span>
 <span></span>
 <span></span>
+<span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">mars_sim_anneal_fit</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/plot-sim-anneal-1.png" class="img-fluid" width="672"></p>
@@ -911,6 +932,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
+<span></span>
 <span></span>
 <span></span>
 <span></span>
@@ -958,6 +980,7 @@ Note
 <span></span>
 <span></span>
 <span></span>
+<span></span>
 <span><span class="va">final_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html">extract_workflow</a></span><span class="op">(</span><span class="va">mars_final_fit</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section id="deploying-to-connect" class="level2"><h2 class="anchored" data-anchor-id="deploying-to-connect">Deploying to Connect</h2>
@@ -965,6 +988,7 @@ Note
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span></span>
+<span></span>
 <span></span>
 <span></span>
 <span></span>

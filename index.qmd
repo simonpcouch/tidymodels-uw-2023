@@ -504,7 +504,7 @@ print(msnflights22, n = 6)
 . . .
 
 ::: callout-note
-See `/example/query_data.R` for the actual code to generate this data!
+See [`/example/query_data.R`](https://github.com/simonpcouch/tidymodels-uw-2023/blob/main/example/query_data.R) for the actual code to generate this data!
 :::
 
 ## Flights out of Madison, WI
