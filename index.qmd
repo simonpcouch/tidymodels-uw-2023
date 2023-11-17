@@ -146,6 +146,10 @@ theme_set(theme_minimal(base_size = 20))
 -   Resources
 :::
 
+# {background-color="#CA225E"}
+
+<center>github.com/simonpcouch/tidymodels-uw-2023</center>
+
 # What is tidymodels? {background-color="#CA225E"}
 
 ------------------------------------------------------------------------
@@ -605,7 +609,7 @@ Preprocessors:
 -   tidyverse: [r4ds.hadley.nz]{style="color:#CA225E;"}
 -   tidymodels: [tmwr.org]{style="color:#CA225E;"}
 -   Posit Team: [posit.co/team]{style="color:#CA225E;"}
--   Slides and source code:
+-   Slides and example notebook:
 
 <center>[github.com/simonpcouch/tidymodels-uw-2023]{style="color:#CA225E;"}</center>
 
