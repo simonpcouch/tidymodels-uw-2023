@@ -199,7 +199,7 @@ Note
 </div>
 </div>
 <p>Predicting flight delays seems quite difficult given the data we have access to. For example, plotting whether a flight is delayed based on precipitation:</p>
-<div class="cell">
+<div class="cell" data-hash="index_cache/html/plot-predictors_26aa2a21ce5ddae7b951ebbdfed7465d">
 <div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># plot 2 predictors, colored by the outcome</span></span>
 <span><span class="va">msnflights22</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -208,7 +208,7 @@ Note
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">wind_speed</span>, y <span class="op">=</span> <span class="va">precip</span>, color <span class="op">=</span> <span class="va">delayed</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_jitter.html">geom_jitter</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
-<p><img src="index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
+<p><img src="index_files/figure-html/plot-predictors-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>A machine learning may be able to get some traction here, though.</p>

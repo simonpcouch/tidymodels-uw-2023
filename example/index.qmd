@@ -4,7 +4,7 @@ subtitle: "A whirlwind tour of the tidymodels."
 format: html
 ---
 
-```{r}
+```{r load-intermediate}
 #| echo: false
 if (file.exists("data/wf_set_fit.rda")) {
   eval_fits <- FALSE
@@ -86,7 +86,8 @@ msnflights22 %>%
 
 Predicting flight delays seems quite difficult given the data we have access to. For example, plotting whether a flight is delayed based on precipitation:
 
-```{r}
+```{r plot-predictors}
+#| cache: true
 # plot 2 predictors, colored by the outcome
 msnflights22 %>%
   filter(precip != 0) %>%
@@ -101,7 +102,7 @@ A machine learning may be able to get some traction here, though.
 
 We split data into training and testing sets so that, once we've trained our final model, we can get an honest assessment of the model's performance. Since this data is a time series, we'll allot the first ~10 months to training and the remainder to testing:
 
-```{r}
+```{r split-flights}
 # set the seed for random number generation
 set.seed(1)
 
@@ -119,7 +120,7 @@ A [sliding period](https://rsample.tidymodels.org/reference/slide-resampling) is
 
 We create 8 folds, where in each fold the analysis set is a 2-month sample of data and the assessment set is the single month following.
 
-```{r}
+```{r folds}
 set.seed(1)
 flights_folds <- 
   sliding_period(
@@ -135,7 +136,7 @@ flights_folds
 
 For example, in the second split,
 
-```{r}
+```{r folds-ex}
 # training: february, march, april
 training(flights_folds$splits[[2]]) %>% pull(date) %>% month() %>% unique()
 
@@ -153,7 +154,7 @@ Our basic strategy is to first try out a bunch of different modeling approaches,
 
 We first define a few [recipes](https://recipes.tidymodels.org/), which specify how to process the inputted data in such a way that machine learning models will know how to work with predictors:
 
-```{r}
+```{r recipes}
 recipe_basic <-
   recipe(delayed ~ ., flights_train) %>%
   step_nzv(all_predictors())
@@ -174,7 +175,7 @@ These recipes vary in complexity, from basic checks on the input data to advance
 
 We also define several [model specifications](https://parsnip.tidymodels.org/). tidymodels comes with support for all sorts of machine learning algorithms, from neural networks to LightGBM boosted trees to plain old logistic regression:
 
-```{r}
+```{r models}
 spec_lr <-
   logistic_reg() %>%
   set_mode("classification")
@@ -213,7 +214,7 @@ If typing all of these out seems cumbersome to you, or you're not sure how to de
 
 We'll pair machine learning models with the recipes that make the most sense for them using [workflow sets](https://workflowsets.tidymodels.org/):
 
-```{r}
+```{r wf-set}
 wf_set <-
   # pair the basic recipe with a boosted tree and logistic regression
   workflow_set(
@@ -252,7 +253,7 @@ wf_set
 
 Now that we've defined each of our modeling configurations, we'll fit them to the resamples we defined earlier. Here, `tune_grid()` is applied to each workflow in the workflow set, testing out a set of tuning parameter values for each workflow and assessing the resulting fit.
 
-```{r}
+```{r wf-set-fit}
 #| eval: !expr eval_fits
 wf_set_fit <-
   workflow_map(
@@ -265,7 +266,7 @@ wf_set_fit <-
   )
 ```
 
-```{r}
+```{r remove-failed-fits}
 #| eval: !expr eval_fits
 #| echo: false
 wf_set_fit <-
@@ -290,7 +291,7 @@ metrics_wf_set <- collect_metrics(wf_set_fit)
 
 Taking a look at how these models did:
 
-```{r}
+```{r metrics-wf-set}
 # extract the top roc_auc values
 metrics_wf_set %>%
   filter(.metric == "roc_auc") %>%
@@ -302,7 +303,7 @@ metrics_wf_set %>%
 
 It looks like a [bagged MARS model](https://parsnip.tidymodels.org/reference/bag_mars.html) with centered and scaled predictors was considerably more performant than the other proposed models. Let's work with those MARS results and see if we can make any further improvements to performance:
 
-```{r}
+```{r mars-sim-anneal}
 #| eval: !expr eval_fits
 mars_res <- extract_workflow_set_result(wf_set_fit, "normalize_bag_mars")
 
@@ -323,14 +324,14 @@ mars_sim_anneal_fit <-
 
 Looks like we *did* make a small improvement:
 
-```{r}
+```{r collect-mars}
 #| eval: false
 collect_metrics(mars_sim_anneal_fit) %>%
   filter(.metric == "roc_auc") %>%
   arrange(desc(mean))
 ```
 
-```{r}
+```{r metrics-mars-sim}
 #| echo: false
 metrics_mars_sim_anneal_fit %>%
   filter(.metric == "roc_auc") %>%
@@ -343,7 +344,7 @@ We can now train the model with the most optimal performance in cross-validation
 
 The `last_fit()` function will take care of fitting the most performant model specification to the whole training dataset and evaluating it's performance with the test set:
 
-```{r}
+```{r mars-final-fit}
 #| eval: !expr eval_fits
 mars_final_fit <-
   mars_sim_anneal_fit %>%
@@ -359,7 +360,7 @@ mars_final_fit
 
 The test set `roc_auc()` for this model was `r collect_metrics(mars_final_fit) %>% filter(.metric == "roc_auc") %>% pull(.estimate) %>% round(3)`. The final fitted workflow can be extracted from `mars_final_fit` and is ready to predict on new data:
 
-```{r}
+```{r extract-workflow}
 final_fit <- extract_workflow(mars_final_fit)
 ```
 
@@ -367,7 +368,7 @@ final_fit <- extract_workflow(mars_final_fit)
 
 From here, all we'd need to do to deploy our fitted model is pass it off to vetiver for deployment to Posit Connect:
 
-```{r}
+```{r final-fit-vetiver}
 #| eval: false
 final_fit_vetiver <- vetiver_model(final_fit, "simon.couch/flights")
 
