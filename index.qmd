@@ -467,6 +467,8 @@ Can't find the technique you need?
 
 ![](https://media.tenor.com/Yw6STFBZk_8AAAAC/not-a-problem-thumbs-up.gif){fig-align="center" width="60%"}
 
+## Why tidymodels?  *Extensibility*
+
 ## Why tidymodels? *Deployability*
 
 . . .
