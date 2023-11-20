@@ -117,12 +117,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>First, loading the <a href="https://www.tidyverse.org/">tidyverse</a> and <a href="https://www.tidymodels.org/">tidymodels</a>, along with a few additional tidymodels extension packages:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="co"># for data analysis:</span></span>
+<code class="sourceCode R"><span><span class="co"># for data analysis:</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://patchwork.data-imaginist.com">patchwork</a></span><span class="op">)</span></span>
 <span></span>
@@ -136,12 +131,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>tidymodels supports a number of R frameworks for <a href="https://tune.tidymodels.org/articles/extras/optimizations.html">parallel computing</a>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="co"># loading needed packages:</span></span>
+<code class="sourceCode R"><span><span class="co"># loading needed packages:</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">doMC</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://parallelly.futureverse.org">parallelly</a></span><span class="op">)</span></span>
 <span></span>
@@ -152,12 +142,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     10 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="co"># register those cores so that tidymodels can see them:</span></span>
+<code class="sourceCode R"><span><span class="co"># register those cores so that tidymodels can see them:</span></span>
 <span><span class="fu"><a href="https://rdrr.io/pkg/doMC/man/registerDoMC.html">registerDoMC</a></span><span class="op">(</span>cores <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://parallelly.futureverse.org/reference/availableCores.html">availableCores</a></span><span class="op">(</span><span class="op">)</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
 <p>With a multi-core setup registered, tidymodels will now make use of all of the cores on my computer for expensive computations.</p>
@@ -165,12 +150,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>We’ll make use of a dataset, msnflights22, containing data on all outbound flights from Madison, Wisconsin in 2022.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/msnflights22.rda"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/load.html">load</a></span><span class="op">(</span><span class="st">"data/msnflights22.rda"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">msnflights22</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -208,12 +188,7 @@ Note
 <p>We’d like to model <code>delayed</code>, a binary outcome variable giving whether a given flight was delayed by 10 or more minutes.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="co"># summarize counts of the outcome variable</span></span>
+<code class="sourceCode R"><span><span class="co"># summarize counts of the outcome variable</span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">msnflights22</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">delayed</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="st">"#cd4173"</span><span class="op">)</span></span></code></pre></div>
@@ -224,12 +199,7 @@ Note
 <p>Predicting flight delays seems quite difficult given the data we have access to. For example, plotting whether a flight is delayed based on precipitation and wind speed:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="co"># plot 2 predictors, colored by the outcome</span></span>
+<code class="sourceCode R"><span><span class="co"># plot 2 predictors, colored by the outcome</span></span>
 <span><span class="va">msnflights22</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">precip</span> <span class="op">!=</span> <span class="fl">0</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
@@ -242,12 +212,7 @@ Note
 <p>Looks like there’s a <em>bit</em> of signal in the time of the day of the flight, but those higher-proportion-delayed hours also have quite a bit fewer flights (and thus more variation):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">msnflights22</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">hour</span>, fill <span class="op">=</span> <span class="va">delayed</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_bar.html">geom_bar</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="op">)</span> <span class="op">/</span></span>
@@ -264,12 +229,7 @@ Note
 <p>We split data into training and testing sets so that, once we’ve trained our final model, we can get an honest assessment of the model’s performance. Since this data is a time series, we’ll allot the first ~10 months to training and the remainder to testing:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="co"># set the seed for random number generation</span></span>
+<code class="sourceCode R"><span><span class="co"># set the seed for random number generation</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># split the flights data into training [jan - oct] and testing  [nov - dec]</span></span>
@@ -294,12 +254,7 @@ Note
 <p>We create 8 folds, where in each fold the analysis set is a 2-month sample of data and the assessment set is the single month following.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
 <span><span class="va">flights_folds</span> <span class="op">&lt;-</span> </span>
 <span>  <span class="fu">sliding_period</span><span class="op">(</span></span>
 <span>    <span class="va">flights_train</span>, </span>
@@ -328,23 +283,13 @@ Note
 <p>For example, in the second split,</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="co"># training: february, march, april</span></span>
+<code class="sourceCode R"><span><span class="co"># training: february, march, april</span></span>
 <span><span class="fu">training</span><span class="op">(</span><span class="va">flights_folds</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 2 3</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="co"># testing: may</span></span>
+<code class="sourceCode R"><span><span class="co"># testing: may</span></span>
 <span><span class="fu">testing</span><span class="op">(</span><span class="va">flights_folds</span><span class="op">$</span><span class="va">splits</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span><span class="op">)</span>  <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/pull.html">pull</a></span><span class="op">(</span><span class="va">date</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://lubridate.tidyverse.org/reference/month.html">month</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html">unique</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4</code></pre>
@@ -368,12 +313,7 @@ Note
 <p>We first define a few <a href="https://recipes.tidymodels.org/">recipes</a>, which specify how to process the inputted data in such a way that machine learning models will know how to work with predictors:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="va">recipe_basic</span> <span class="op">&lt;-</span></span>
+<code class="sourceCode R"><span><span class="va">recipe_basic</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">recipe</span><span class="op">(</span><span class="va">delayed</span> <span class="op">~</span> <span class="va">.</span>, <span class="va">flights_train</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu">step_nzv</span><span class="op">(</span><span class="fu">all_predictors</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -392,12 +332,7 @@ Note
 <p>We also define several <a href="https://parsnip.tidymodels.org/">model specifications</a>. tidymodels comes with support for all sorts of machine learning algorithms, from neural networks to LightGBM boosted trees to plain old logistic regression:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="va">spec_lr</span> <span class="op">&lt;-</span></span>
+<code class="sourceCode R"><span><span class="va">spec_lr</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/logistic_reg.html">logistic_reg</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://parsnip.tidymodels.org/reference/set_args.html">set_mode</a></span><span class="op">(</span><span class="st">"classification"</span><span class="op">)</span></span>
 <span></span>
@@ -432,12 +367,7 @@ Note
 <p>We’ll pair machine learning models with the recipes that make the most sense for them using <a href="https://workflowsets.tidymodels.org/">workflow sets</a>:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="va">wf_set</span> <span class="op">&lt;-</span></span>
+<code class="sourceCode R"><span><span class="va">wf_set</span> <span class="op">&lt;-</span></span>
 <span>  <span class="co"># pair the basic recipe with a boosted tree and logistic regression</span></span>
 <span>  <span class="fu">workflow_set</span><span class="op">(</span></span>
 <span>    preproc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>basic <span class="op">=</span> <span class="va">recipe_basic</span><span class="op">)</span>,</span>
@@ -490,12 +420,7 @@ Note
 <p>Now that we’ve defined each of our modeling configurations, we’ll fit them to the resamples we defined earlier. Here, <code><a href="https://tune.tidymodels.org/reference/tune_grid.html">tune_grid()</a></code> is applied to each workflow in the workflow set, testing out a set of tuning parameter values for each workflow and assessing the resulting fit.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="va">wf_set_fit</span> <span class="op">&lt;-</span></span>
+<code class="sourceCode R"><span><span class="va">wf_set_fit</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">workflow_map</span><span class="op">(</span></span>
 <span>    <span class="va">wf_set</span>, </span>
 <span>    fn <span class="op">=</span> <span class="st">"tune_grid"</span>, </span>
@@ -520,12 +445,7 @@ Note
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="va">wf_set_fit</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">wf_set_fit</span></span></code></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A workflow set/tibble: 8 × 4
   wflow_id           info             option    result   
@@ -544,23 +464,13 @@ Note
 <p>Collecting the information on performance from the resulting object:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="co"># first look at metrics:</span></span>
+<code class="sourceCode R"><span><span class="co"># first look at metrics:</span></span>
 <span><span class="va">metrics_wf_set</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tune.tidymodels.org/reference/collect_predictions.html">collect_metrics</a></span><span class="op">(</span><span class="va">wf_set_fit</span><span class="op">)</span></span></code></pre></div>
 </div>
 <p>Taking a look at how these models did:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="co"># extract the top roc_auc values</span></span>
+<code class="sourceCode R"><span><span class="co"># extract the top roc_auc values</span></span>
 <span><span class="va">metrics_wf_set</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">.metric</span> <span class="op">==</span> <span class="st">"roc_auc"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">mean</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -598,12 +508,7 @@ Note
 <p>Alternatively, we can use the <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot()</a></code> method for workflow sets to visualize the same results:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">wf_set_fit</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">wf_set_fit</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/autoplot-wf-set-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -613,12 +518,7 @@ Note
 <p>It looks like a bagged MARS model with centered and scaled predictors was considerably more performant than the other proposed models. Let’s work with those MARS results and see if we can make any further improvements to performance:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="va">mars_res</span> <span class="op">&lt;-</span> <span class="fu">extract_workflow_set_result</span><span class="op">(</span><span class="va">wf_set_fit</span>, <span class="st">"normalize_bag_mars"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">mars_res</span> <span class="op">&lt;-</span> <span class="fu">extract_workflow_set_result</span><span class="op">(</span><span class="va">wf_set_fit</span>, <span class="st">"normalize_bag_mars"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">mars_wflow</span> <span class="op">&lt;-</span></span>
 <span>  <span class="fu">workflow</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -637,12 +537,7 @@ Note
 <p>Looks like we <em>did</em> make a small improvement, though the model still doesn’t do much better than randomly guessing:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="fu"><a href="https://tune.tidymodels.org/reference/collect_predictions.html">collect_metrics</a></span><span class="op">(</span><span class="va">mars_sim_anneal_fit</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
+<code class="sourceCode R"><span><span class="fu"><a href="https://tune.tidymodels.org/reference/collect_predictions.html">collect_metrics</a></span><span class="op">(</span><span class="va">mars_sim_anneal_fit</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">.metric</span> <span class="op">==</span> <span class="st">"roc_auc"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/arrange.html">arrange</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/desc.html">desc</a></span><span class="op">(</span><span class="va">mean</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -666,12 +561,7 @@ Note
 <p>Just like the workflow set result from before, the simulated annealing result also has an <code><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot()</a></code> method:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">mars_sim_anneal_fit</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/autoplot.html">autoplot</a></span><span class="op">(</span><span class="va">mars_sim_anneal_fit</span><span class="op">)</span></span></code></pre></div>
 <div class="cell-output-display">
 <p><img src="index_files/figure-html/plot-sim-anneal-1.png" class="img-fluid" width="672"></p>
 </div>
@@ -681,12 +571,7 @@ Note
 <p>The <code><a href="https://tune.tidymodels.org/reference/last_fit.html">last_fit()</a></code> function will take care of fitting the most performant model specification to the whole training dataset and evaluating it’s performance with the test set:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="va">mars_final_fit</span> <span class="op">&lt;-</span></span>
+<code class="sourceCode R"><span><span class="va">mars_final_fit</span> <span class="op">&lt;-</span></span>
 <span>  <span class="va">mars_sim_anneal_fit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
 <span>  <span class="co"># extract the best hyperparameter configuration</span></span>
 <span>  <span class="fu"><a href="https://tune.tidymodels.org/reference/show_best.html">select_best</a></span><span class="op">(</span><span class="st">"roc_auc"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span></span>
@@ -700,23 +585,13 @@ Note
 <p>The test set <code>roc_auc()</code> for this model was 0.625. The final fitted workflow can be extracted from <code>mars_final_fit</code> and is ready to predict on new data:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="va">final_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html">extract_workflow</a></span><span class="op">(</span><span class="va">mars_final_fit</span><span class="op">)</span></span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">final_fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://hardhat.tidymodels.org/reference/hardhat-extract.html">extract_workflow</a></span><span class="op">(</span><span class="va">mars_final_fit</span><span class="op">)</span></span></code></pre></div>
 </div>
 </section><section id="deploying-to-connect" class="level2"><h2 class="anchored" data-anchor-id="deploying-to-connect">Deploying to Connect</h2>
 <p>From here, all we’d need to do to deploy our fitted model is pass it off to vetiver for deployment to Posit Connect:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span></span>
-<span></span>
-<span></span>
-<span></span>
-<span></span>
-<span><span class="va">final_fit_vetiver</span> <span class="op">&lt;-</span> <span class="fu">vetiver_model</span><span class="op">(</span><span class="va">final_fit</span>, <span class="st">"simon.couch/flights"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">final_fit_vetiver</span> <span class="op">&lt;-</span> <span class="fu">vetiver_model</span><span class="op">(</span><span class="va">final_fit</span>, <span class="st">"simon.couch/flights"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">board</span> <span class="op">&lt;-</span> <span class="fu">board_connect</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>

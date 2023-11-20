@@ -333,7 +333,7 @@ With h2o:
 ```{r eng-h2o-model}
 #| echo: true
 #| eval: false
-h2o::h2o.init()
+h2o.init()
 as.h2o(mtcars, "mtcars")
 
 model <- 
