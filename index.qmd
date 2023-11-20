@@ -582,6 +582,8 @@ See how we carried that analysis out here:
 
 ![](figures/ml_ops_cycle_tidymodels_plus_posit_team.png){fig-align="center"}
 
+# Resources {background-color="#CA225E"}
+
 ## Resources
 
 ::: columns

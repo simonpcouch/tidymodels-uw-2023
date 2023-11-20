@@ -123,7 +123,7 @@
     "href": "index.html#who-all-is-flying-home-for-the-holidays",
     "title": "",
     "section": "Who all is flying home for the holidays?",
-    "text": "Who all is flying home for the holidays?\n\n\n\n\n😬☃️😬🎅😬🎅😬☃️😬🎅😬🎁😬"
+    "text": "Who all is flying home for the holidays?\n\n\n\n\n😬🎅😬🎅😬☃️😬🎅😬☃️😬🎁😬"
   },
   {
     "objectID": "index.html#flights-out-of-madison-wi",
@@ -189,29 +189,29 @@
     "text": "Flights out of Madison, WI\n\nSee how we carried that analysis out here:\n\ngithub.com/simonpcouch/tidymodels-uw-2023"
   },
   {
-    "objectID": "index.html#resources",
-    "href": "index.html#resources",
-    "title": "",
-    "section": "Resources",
-    "text": "Resources\n\n\n\ntidyverse: r4ds.hadley.nz"
-  },
-  {
     "objectID": "index.html#resources-1",
     "href": "index.html#resources-1",
     "title": "",
     "section": "Resources",
-    "text": "Resources\n\n\n\ntidyverse: r4ds.hadley.nz\ntidymodels: tmwr.org"
+    "text": "Resources\n\n\n\ntidyverse: r4ds.hadley.nz"
   },
   {
     "objectID": "index.html#resources-2",
     "href": "index.html#resources-2",
     "title": "",
     "section": "Resources",
-    "text": "Resources\n\n\n\ntidyverse: r4ds.hadley.nz\ntidymodels: tmwr.org\nPosit Team: posit.co/team"
+    "text": "Resources\n\n\n\ntidyverse: r4ds.hadley.nz\ntidymodels: tmwr.org"
   },
   {
     "objectID": "index.html#resources-3",
     "href": "index.html#resources-3",
+    "title": "",
+    "section": "Resources",
+    "text": "Resources\n\n\n\ntidyverse: r4ds.hadley.nz\ntidymodels: tmwr.org\nPosit Team: posit.co/team"
+  },
+  {
+    "objectID": "index.html#resources-4",
+    "href": "index.html#resources-4",
     "title": "",
     "section": "Resources",
     "text": "Resources\n\ntidyverse: r4ds.hadley.nz\ntidymodels: tmwr.org\nPosit Team: posit.co/team\nSlides and example notebook:\n\n\ngithub.com/simonpcouch/tidymodels-uw-2023\n\n\nThank you!\n\n\ngithub.com/simonpcouch/tidymodels-uw-2023"
