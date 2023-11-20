@@ -67,7 +67,7 @@
     "href": "index.html#why-tidymodels-consistency-4",
     "title": "",
     "section": "Why tidymodels?  Consistency",
-    "text": "Why tidymodels?  Consistency\n\n\nWith h2o:\n\nh2o.init()\nas.h2o(mtcars, \"mtcars\")\n\nmodel &lt;- \n  h2o.glm(\n    x = colnames(mtcars[2:11]), \n    y = \"mpg\",\n    \"mtcars\"\n  )\n\n\nWith tidymodels:\n\nmodel &lt;-\n  linear_reg() %&gt;%\n  set_engine(\"h2o\") %&gt;%\n  fit(mpg ~ ., mtcars)"
+    "text": "Why tidymodels?  Consistency\n\n\nWith h2o:\n\nh2o.init()\nas.h2o(mtcars, \"cars\")\n\nmodel &lt;- \n  h2o.glm(\n    x = colnames(mtcars[2:11]), \n    y = \"mpg\",\n    \"cars\"\n  )\n\n\nWith tidymodels:\n\nmodel &lt;-\n  linear_reg() %&gt;%\n  set_engine(\"h2o\") %&gt;%\n  fit(mpg ~ ., mtcars)"
   },
   {
     "objectID": "index.html#why-tidymodels-consistency-5",
@@ -116,7 +116,7 @@
     "href": "index.html#who-all-is-flying-home-for-the-holidays",
     "title": "",
     "section": "Who all is flying home for the holidays?",
-    "text": "Who all is flying home for the holidays?\n\n\n\n\n😬🎁😬🎁😬☃️😬🎅😬☃️😬☃️😬"
+    "text": "Who all is flying home for the holidays?\n\n\n\n\n😬🎅😬☃️😬🎅😬🎅😬🎅😬🎁😬"
   },
   {
     "objectID": "index.html#flights-out-of-madison-wi",

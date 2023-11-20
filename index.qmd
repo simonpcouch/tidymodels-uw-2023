@@ -334,13 +334,13 @@ With h2o:
 #| echo: true
 #| eval: false
 h2o.init()
-as.h2o(mtcars, "mtcars")
+as.h2o(mtcars, "cars")
 
 model <- 
   h2o.glm(
     x = colnames(mtcars[2:11]), 
     y = "mpg",
-    "mtcars"
+    "cars"
   )
 ```
 :::
