@@ -81,14 +81,14 @@
     "href": "index.html#why-tidymodels-safety1",
     "title": "",
     "section": "Why tidymodels?  Safety1",
-    "text": "Why tidymodels?  Safety1\n10.1016/j.patter.2023.100804, 10.1097/01.psy.0000127692.23278.a9, 10.1609/aaai.v32i1.11694"
+    "text": "Why tidymodels?  Safety1\n10.1097/01.psy.0000127692.23278.a9, 10.1016/j.patter.2023.100804, 10.1609/aaai.v32i1.11694"
   },
   {
     "objectID": "index.html#why-tidymodels-safety2",
     "href": "index.html#why-tidymodels-safety2",
     "title": "",
     "section": "Why tidymodels?  Safety1",
-    "text": "Why tidymodels?  Safety1\n\nA 2023 review found data leakage to be “a widespread failure mode in machine-learning (ML)-based science.”\n\n\n\nOverfitting leads to analysts believing models are more performant than they actually are.\n\n\n\n\nImplementations of the same machine learning model give differing results, resulting in irreproducibility of modeling results.\n\n\n10.1016/j.patter.2023.100804, 10.1097/01.psy.0000127692.23278.a9, 10.1609/aaai.v32i1.11694"
+    "text": "Why tidymodels?  Safety1\n\nOverfitting leads to analysts believing models are more performant than they actually are.\n\n\n\nA 2023 review found data leakage to be “a widespread failure mode in machine-learning (ML)-based science.”\n\n\n\n\nImplementations of the same machine learning model give differing results, resulting in irreproducibility of modeling results.\n\n\n10.1097/01.psy.0000127692.23278.a9, 10.1016/j.patter.2023.100804, 10.1609/aaai.v32i1.11694"
   },
   {
     "objectID": "index.html#why-tidymodels-safety",
@@ -116,7 +116,7 @@
     "href": "index.html#who-all-is-flying-home-for-the-holidays",
     "title": "",
     "section": "Who all is flying home for the holidays?",
-    "text": "Who all is flying home for the holidays?\n\n\n\n\n😬🎅😬☃️😬🎅😬🎅😬🎅😬🎁😬"
+    "text": "Who all is flying home for the holidays?\n\n\n\n\n😬🎁😬🎁😬🎁😬🎅😬☃️😬🎁😬"
   },
   {
     "objectID": "index.html#flights-out-of-madison-wi",

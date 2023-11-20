@@ -364,17 +364,17 @@ model <-
 
 ## Why tidymodels?  *Safety*[^1]
 
-[^1]: 10.1016/j.patter.2023.100804, 10.1097/01.psy.0000127692.23278.a9, 10.1609/aaai.v32i1.11694
+[^1]: 10.1097/01.psy.0000127692.23278.a9, 10.1016/j.patter.2023.100804, 10.1609/aaai.v32i1.11694
 
 ## Why tidymodels?  *Safety*[^2]
 
-[^2]: 10.1016/j.patter.2023.100804, 10.1097/01.psy.0000127692.23278.a9, 10.1609/aaai.v32i1.11694
+[^2]: 10.1097/01.psy.0000127692.23278.a9, 10.1016/j.patter.2023.100804, 10.1609/aaai.v32i1.11694
 
--   A 2023 review found **data leakage** to be "a widespread failure mode in machine-learning (ML)-based science."
+-   **Overfitting** leads to analysts believing models are more performant than they actually are.
 
 . . .
 
--   **Overfitting** leads to analysts believing models are more performant than they actually are.
+-   A 2023 review found **data leakage** to be "a widespread failure mode in machine-learning (ML)-based science."
 
 . . .
 
